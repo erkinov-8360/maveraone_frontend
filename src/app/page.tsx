@@ -53,20 +53,20 @@ export default function HomePage() {
 
 
             {/* Large Hero Text */}
-            <h1 className="text-7xl md:text-9xl text-white font-medium mb-5 tracking-tight leading-none">
-                 Discover Your Next Destination with Maveraone
+            <h1 className="text-5xl md:text-7xl lg:text-8xl text-white font-medium mb-8 tracking-tight leading-none">
+                 Discover Your Next Destination
             </h1>
 
             {/* Feature badges at bottom */}
             
 
             {/* Search Form - Positioned at bottom */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-full max-w-6xl px-4">
-              <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl p-6">
-                <div className="grid grid-cols-5 gap-4">
+            <div className="absolute left-1/2 transform -translate-x-1/2 w-full max-w-5xl px-4">
+              <div className="bg-white/95 backdrop-blur-md rounded-xl shadow-2xl p-5">
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
                   {/* Departure Location */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-xs font-medium text-gray-700 mb-1.5">
                       Jo&apos;nash joyi
                     </label>
                     <Select value={departureCity} onValueChange={setDepartureCity}>
@@ -85,7 +85,7 @@ export default function HomePage() {
 
                   {/* Destination */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-xs font-medium text-gray-700 mb-1.5">
                       Borish joyi
                     </label>
                     <Select value={destinationCity} onValueChange={setDestinationCity}>
@@ -104,7 +104,7 @@ export default function HomePage() {
 
                   {/* Start Date */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-xs font-medium text-gray-700 mb-1.5">
                       Boshlanish sanasi
                     </label>
                     <DatePicker date={startDate} onDateChange={setStartDate} />
@@ -112,7 +112,7 @@ export default function HomePage() {
 
                   {/* End Date */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-xs font-medium text-gray-700 mb-1.5">
                       Tugash sanasi
                     </label>
                     <DatePicker date={endDate} onDateChange={setEndDate} />
@@ -120,12 +120,12 @@ export default function HomePage() {
 
                   {/* Search Button */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2 invisible">
+                    <label className="block text-xs font-medium text-gray-700 mb-1.5 invisible">
                       Button
                     </label>
                     <Button
                       size="lg"
-                      className="w-full bg-[#F5B546] hover:bg-[#e5a536] text-white transition-all duration-300 h-12"
+                      className="w-full bg-[#F5B546] hover:bg-[#e5a536] text-white transition-all duration-300 h-11"
                     >
                       Qidirish
                     </Button>

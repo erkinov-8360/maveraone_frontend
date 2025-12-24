@@ -6,10 +6,18 @@ export class GoogleOAuthProvider {
   private storage = new LocalStorageAdapter();
 
   async authorize(): Promise<void> {
+    // Calculate center position
+    const width = 600;
+    const height = 700;
+    const left = (window.screen.width - width) / 2;
+    const top = (window.screen.height - height) / 2;
+    const windowFeatures = `width=${width},height=${height},left=${left},top=${top},noopener,noreferrer`;
+
     if (AUTH_CONFIG.useMock) {
-      // Mock implementation - simulate redirect
+      // Mock implementation - simulate redirect in new tab
       const mockCode = 'mock-google-code-' + Date.now();
-      window.location.href = `${AUTH_CONFIG.oauth.google.redirectUri}?code=${mockCode}`;
+      const url = `${AUTH_CONFIG.oauth.google.redirectUri}?code=${mockCode}`;
+      window.open(url, '_blank', windowFeatures);
       return;
     }
 
@@ -21,7 +29,8 @@ export class GoogleOAuthProvider {
       scope: AUTH_CONFIG.oauth.google.scope,
     });
 
-    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
+    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
+    window.open(authUrl, '_blank', windowFeatures);
   }
 
   async handleCallback(code: string): Promise<AuthResponse> {

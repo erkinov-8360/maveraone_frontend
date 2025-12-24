@@ -6,10 +6,18 @@ export class FacebookOAuthProvider {
   private storage = new LocalStorageAdapter();
 
   async authorize(): Promise<void> {
+    // Calculate center position
+    const width = 600;
+    const height = 700;
+    const left = (window.screen.width - width) / 2;
+    const top = (window.screen.height - height) / 2;
+    const windowFeatures = `width=${width},height=${height},left=${left},top=${top},noopener,noreferrer`;
+
     if (AUTH_CONFIG.useMock) {
-      // Mock implementation - simulate redirect
+      // Mock implementation - simulate redirect in new tab
       const mockCode = 'mock-facebook-code-' + Date.now();
-      window.location.href = `${AUTH_CONFIG.oauth.facebook.redirectUri}?code=${mockCode}`;
+      const url = `${AUTH_CONFIG.oauth.facebook.redirectUri}?code=${mockCode}`;
+      window.open(url, '_blank', windowFeatures);
       return;
     }
 
@@ -20,7 +28,8 @@ export class FacebookOAuthProvider {
       scope: AUTH_CONFIG.oauth.facebook.scope,
     });
 
-    window.location.href = `https://www.facebook.com/v18.0/dialog/oauth?${params}`;
+    const authUrl = `https://www.facebook.com/v18.0/dialog/oauth?${params}`;
+    window.open(authUrl, '_blank', windowFeatures);
   }
 
   async handleCallback(code: string): Promise<AuthResponse> {
