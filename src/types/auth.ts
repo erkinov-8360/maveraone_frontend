@@ -17,7 +17,7 @@ export interface RegisterCredentials {
   name: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  password_confirmation: string;
 }
 
 export interface AuthResponse {
@@ -28,6 +28,5 @@ export interface AuthResponse {
 
 export interface OAuthProvider {
   name: string;
-  authorize: () => Promise<void>;
-  handleCallback: (code: string) => Promise<AuthResponse>;
+  authorize: () => void;
 }

@@ -8,20 +8,12 @@ export function SocialAuthButtons() {
   const googleProvider = new GoogleOAuthProvider();
   const facebookProvider = new FacebookOAuthProvider();
 
-  const handleGoogleLogin = async () => {
-    try {
-      await googleProvider.authorize();
-    } catch (error) {
-      console.error('Google login failed:', error);
-    }
+  const handleGoogleLogin = () => {
+    googleProvider.authorize();
   };
 
-  const handleFacebookLogin = async () => {
-    try {
-      await facebookProvider.authorize();
-    } catch (error) {
-      console.error('Facebook login failed:', error);
-    }
+  const handleFacebookLogin = () => {
+    facebookProvider.authorize();
   };
 
   return (

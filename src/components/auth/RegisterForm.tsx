@@ -1,29 +1,26 @@
 'use client';
 
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { useAuth } from '@/hooks/useAuth';
+import { useRegister } from '@/hooks/useAuthMutations';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import toast from 'react-hot-toast';
 
 const registerSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Invalid email address'),
   password: z.string().min(8, 'Password must be at least 8 characters'),
-  confirmPassword: z.string(),
-}).refine((data) => data.password === data.confirmPassword, {
+  password_confirmation: z.string(),
+}).refine((data) => data.password === data.password_confirmation, {
   message: "Passwords don't match",
-  path: ['confirmPassword'],
+  path: ['password_confirmation'],
 });
 
 type RegisterFormData = z.infer<typeof registerSchema>;
 
 export function RegisterForm() {
-  const { register: registerUser } = useAuth();
-  const [isLoading, setIsLoading] = useState(false);
+  const registerMutation = useRegister();
 
   const {
     register,
@@ -33,16 +30,8 @@ export function RegisterForm() {
     resolver: zodResolver(registerSchema),
   });
 
-  const onSubmit = async (data: RegisterFormData) => {
-    setIsLoading(true);
-    try {
-      await registerUser(data);
-      toast.success('Registration successful!');
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Registration failed');
-    } finally {
-      setIsLoading(false);
-    }
+  const onSubmit = (data: RegisterFormData) => {
+    registerMutation.mutate(data);
   };
 
   return (
@@ -75,14 +64,14 @@ export function RegisterForm() {
         label="Confirm Password"
         type="password"
         placeholder="Confirm your password"
-        error={errors.confirmPassword?.message}
-        {...register('confirmPassword')}
+        error={errors.password_confirmation?.message}
+        {...register('password_confirmation')}
       />
 
       <Button
         type="submit"
         className="w-full"
-        isLoading={isLoading}
+        isLoading={registerMutation.isPending}
       >
         Create Account
       </Button>

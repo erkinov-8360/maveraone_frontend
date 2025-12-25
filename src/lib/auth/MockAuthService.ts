@@ -42,7 +42,7 @@ export class MockAuthService implements AuthService {
     }
 
     // Check password confirmation
-    if (credentials.password !== credentials.confirmPassword) {
+    if (credentials.password !== credentials.password_confirmation) {
       throw new Error('Passwords do not match');
     }
 

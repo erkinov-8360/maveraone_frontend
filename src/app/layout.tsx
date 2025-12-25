@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
+import { QueryProvider } from "@/providers/QueryProvider";
 import { Toaster } from "react-hot-toast";
 import SmoothScroll from "@/components/SmoothScroll";
 
@@ -27,10 +28,12 @@ export default function RootLayout({
         className={`${poppins.variable} antialiased`}
       >
         <SmoothScroll />
-        <AuthProvider>
-          {children}
-          <Toaster position="top-right" />
-        </AuthProvider>
+        <QueryProvider>
+          <AuthProvider>
+            {children}
+            <Toaster position="top-right" />
+          </AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );
