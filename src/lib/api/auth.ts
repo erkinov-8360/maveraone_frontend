@@ -2,17 +2,19 @@ import { apiClient } from './client';
 import { AuthResponse, LoginCredentials, RegisterCredentials } from '@/types/auth';
 
 interface ExchangeCodeResponse {
-  user: {
-    id: string;
-    email: string;
-    name: string;
-    profilePicture?: string;
-    provider: 'email' | 'google' | 'facebook';
-    createdAt: string;
-    updatedAt: string;
+  success: boolean;
+  message: string;
+  data: {
+    access_token: string;
+    token_type: string;
+    user: {
+      name: string;
+      email: string;
+      avatar: string | null;
+      email_verified_at: string | null;
+    };
   };
-  token: string;
-  expiresAt: string;
+  errors: null;
 }
 
 export const authApi = {
@@ -24,12 +26,20 @@ export const authApi = {
 
     return {
       user: {
-        ...response.user,
-        createdAt: new Date(response.user.createdAt),
-        updatedAt: new Date(response.user.updatedAt),
+        id: '',
+        email: response.data.user.email,
+        name: response.data.user.name,
+        profilePicture: response.data.user.avatar || undefined,
+        provider: 'google',
+        createdAt: response.data.user.email_verified_at
+          ? new Date(response.data.user.email_verified_at)
+          : new Date(),
+        updatedAt: response.data.user.email_verified_at
+          ? new Date(response.data.user.email_verified_at)
+          : new Date(),
       },
-      token: response.token,
-      expiresAt: new Date(response.expiresAt),
+      token: response.data.access_token,
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
     };
   },
 
@@ -41,12 +51,20 @@ export const authApi = {
 
     return {
       user: {
-        ...response.user,
-        createdAt: new Date(response.user.createdAt),
-        updatedAt: new Date(response.user.updatedAt),
+        id: '',
+        email: response.data.user.email,
+        name: response.data.user.name,
+        profilePicture: response.data.user.avatar || undefined,
+        provider: 'email',
+        createdAt: response.data.user.email_verified_at
+          ? new Date(response.data.user.email_verified_at)
+          : new Date(),
+        updatedAt: response.data.user.email_verified_at
+          ? new Date(response.data.user.email_verified_at)
+          : new Date(),
       },
-      token: response.token,
-      expiresAt: new Date(response.expiresAt),
+      token: response.data.access_token,
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
     };
   },
 
@@ -58,23 +76,33 @@ export const authApi = {
 
     return {
       user: {
-        ...response.user,
-        createdAt: new Date(response.user.createdAt),
-        updatedAt: new Date(response.user.updatedAt),
+        id: '',
+        email: response.data.user.email,
+        name: response.data.user.name,
+        profilePicture: response.data.user.avatar || undefined,
+        provider: 'email',
+        createdAt: response.data.user.email_verified_at
+          ? new Date(response.data.user.email_verified_at)
+          : new Date(),
+        updatedAt: response.data.user.email_verified_at
+          ? new Date(response.data.user.email_verified_at)
+          : new Date(),
       },
-      token: response.token,
-      expiresAt: new Date(response.expiresAt),
+      token: response.data.access_token,
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
     };
   },
 
   getGoogleAuthUrl: (): string => {
     const baseUrl = apiClient.getBaseUrl();
-    return `${baseUrl}/api/public/auth/redirect/google`;
+    const redirectUrl = encodeURIComponent(`${window.location.origin}/oauth/callback`);
+    return `${baseUrl}/api/public/auth/redirect/google?redirect_url=${redirectUrl}&prompt=select_account`;
   },
 
   getFacebookAuthUrl: (): string => {
     const baseUrl = apiClient.getBaseUrl();
-    return `${baseUrl}/api/public/auth/redirect/facebook`;
+    const redirectUrl = encodeURIComponent(`${window.location.origin}/oauth/callback`);
+    return `${baseUrl}/api/public/auth/redirect/facebook?redirect_url=${redirectUrl}`;
   },
 
   resetPassword: async (email: string): Promise<{ message: string }> => {

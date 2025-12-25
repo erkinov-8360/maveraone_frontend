@@ -28,5 +28,5 @@ export interface AuthResponse {
 
 export interface OAuthProvider {
   name: string;
-  authorize: () => void;
+  authorize: () => Promise<string>;
 }

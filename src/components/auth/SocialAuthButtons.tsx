@@ -1,19 +1,74 @@
 'use client';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { GoogleOAuthProvider } from '@/lib/auth/oauth/GoogleOAuthProvider';
 import { FacebookOAuthProvider } from '@/lib/auth/oauth/FacebookOAuthProvider';
+import { authApi } from '@/lib/api/auth';
+import { useAuth } from '@/context/AuthContext';
 
 export function SocialAuthButtons() {
+  const router = useRouter();
+  const { refreshUser } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const googleProvider = new GoogleOAuthProvider();
   const facebookProvider = new FacebookOAuthProvider();
 
-  const handleGoogleLogin = () => {
-    googleProvider.authorize();
+  const handleGoogleLogin = async () => {
+    try {
+      setIsLoading(true);
+      const code = await googleProvider.authorize();
+      const authResponse = await authApi.exchangeCode(code);
+
+      // Store the token
+      localStorage.setItem('auth_token', authResponse.token);
+      localStorage.setItem('user', JSON.stringify(authResponse.user));
+
+      // Refresh the auth context to update UI
+      await refreshUser();
+
+      // Redirect to main page
+      router.push('/');
+    } catch (error) {
+      // Silently handle user cancellation (popup closed)
+      if (error instanceof Error && error.message === 'Popup closed by user') {
+        console.log('User cancelled Google OAuth');
+        return;
+      }
+      // Log other errors but don't show to user
+      console.error('Google OAuth error:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleFacebookLogin = () => {
-    facebookProvider.authorize();
+  const handleFacebookLogin = async () => {
+    try {
+      setIsLoading(true);
+      const code = await facebookProvider.authorize();
+      const authResponse = await authApi.exchangeCode(code);
+
+      // Store the token
+      localStorage.setItem('auth_token', authResponse.token);
+      localStorage.setItem('user', JSON.stringify(authResponse.user));
+
+      // Refresh the auth context to update UI
+      await refreshUser();
+
+      // Redirect to main page
+      router.push('/');
+    } catch (error) {
+      // Silently handle user cancellation (popup closed)
+      if (error instanceof Error && error.message === 'Popup closed by user') {
+        console.log('User cancelled Facebook OAuth');
+        return;
+      }
+      // Log other errors but don't show to user
+      console.error('Facebook OAuth error:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -23,6 +78,7 @@ export function SocialAuthButtons() {
         className="w-full flex items-center justify-center gap-3"
         onClick={handleGoogleLogin}
         type="button"
+        disabled={isLoading}
       >
         <svg className="h-5 w-5" viewBox="0 0 24 24">
           <path
@@ -50,6 +106,7 @@ export function SocialAuthButtons() {
         className="w-full flex items-center justify-center gap-3"
         onClick={handleFacebookLogin}
         type="button"
+        disabled={isLoading}
       >
         <svg className="h-5 w-5" fill="#1877F2" viewBox="0 0 24 24">
           <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
