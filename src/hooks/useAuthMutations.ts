@@ -35,7 +35,7 @@ export function useLogin() {
     onSuccess: (data) => {
       setAuth(data.user, data.token);
       toast.success('Successfully signed in!');
-      router.push(ROUTES.DASHBOARD);
+      router.push(ROUTES.HOME);
     },
     onError: (error: Error) => {
       toast.error(error.message || 'Login failed');
@@ -52,7 +52,7 @@ export function useRegister() {
     onSuccess: (data) => {
       setAuth(data.user, data.token);
       toast.success('Account created successfully!');
-      router.push(ROUTES.DASHBOARD);
+      router.push(ROUTES.HOME);
     },
     onError: (error: Error) => {
       toast.error(error.message || 'Registration failed');

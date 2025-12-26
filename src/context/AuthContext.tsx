@@ -43,13 +43,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   async function login(credentials: LoginCredentials) {
     const { user } = await authService.login(credentials);
     setUser(user);
-    router.push(ROUTES.DASHBOARD);
+    router.push(ROUTES.HOME);
   }
 
   async function register(credentials: RegisterCredentials) {
     const { user } = await authService.register(credentials);
     setUser(user);
-    router.push(ROUTES.DASHBOARD);
+    router.push(ROUTES.HOME);
   }
 
   async function logout() {

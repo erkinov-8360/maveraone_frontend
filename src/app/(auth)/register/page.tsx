@@ -6,13 +6,13 @@ import { Card } from '@/components/ui/Card';
 
 export default function RegisterPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12">
+    <div className="flex min-h-screen items-center justify-center bg-black px-4 py-12">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+          <h1 className="text-3xl font-bold tracking-tight text-white">
             Create an account
           </h1>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 text-sm text-gray-400">
             Start your journey with MaveraOne Tours
           </p>
         </div>
@@ -34,11 +34,11 @@ export default function RegisterPage() {
           <RegisterForm />
         </Card>
 
-        <p className="text-center text-sm text-gray-600">
+        <p className="text-center text-sm text-gray-400">
           Already have an account?{' '}
           <Link
             href={ROUTES.LOGIN}
-            className="font-medium text-blue-600 hover:underline"
+            className="font-medium text-[#F5B546] hover:underline"
           >
             Sign in
           </Link>

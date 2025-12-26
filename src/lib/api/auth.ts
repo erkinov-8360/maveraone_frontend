@@ -45,7 +45,7 @@ export const authApi = {
 
   login: async (credentials: LoginCredentials): Promise<AuthResponse> => {
     const response = await apiClient.post<ExchangeCodeResponse>(
-      'api/public/auth/login',
+      'api/public/login',
       credentials
     );
 

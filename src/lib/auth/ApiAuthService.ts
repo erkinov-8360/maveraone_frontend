@@ -1,67 +1,40 @@
 import { AuthService } from './AuthService';
 import { LoginCredentials, RegisterCredentials, AuthResponse, User } from '@/types/auth';
+import { authApi } from '@/lib/api/auth';
+import { useAuthStore } from '@/store/authStore';
 
 export class ApiAuthService implements AuthService {
-  private baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
-
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
-    const response = await fetch(`${this.baseUrl}/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(credentials),
-    });
+    const response = await authApi.login(credentials);
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Login failed');
-    }
+    // Store in Zustand store
+    useAuthStore.getState().setAuth(response.user, response.token);
 
-    return response.json();
+    return response;
   }
 
   async register(credentials: RegisterCredentials): Promise<AuthResponse> {
-    const response = await fetch(`${this.baseUrl}/auth/register`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(credentials),
-    });
+    const response = await authApi.register(credentials);
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Registration failed');
-    }
+    // Store in Zustand store
+    useAuthStore.getState().setAuth(response.user, response.token);
 
-    return response.json();
+    return response;
   }
 
   async logout(): Promise<void> {
-    await fetch(`${this.baseUrl}/auth/logout`, {
-      method: 'POST',
-      credentials: 'include',
-    });
+    // Clear Zustand store
+    useAuthStore.getState().clearAuth();
   }
 
   async getCurrentUser(): Promise<User | null> {
-    const response = await fetch(`${this.baseUrl}/auth/me`, {
-      credentials: 'include',
-    });
-
-    if (!response.ok) return null;
-
-    return response.json();
+    // Get user from Zustand store
+    const { user } = useAuthStore.getState();
+    return user;
   }
 
   async refreshToken(): Promise<string> {
-    const response = await fetch(`${this.baseUrl}/auth/refresh`, {
-      method: 'POST',
-      credentials: 'include',
-    });
-
-    if (!response.ok) {
-      throw new Error('Token refresh failed');
-    }
-
-    const data = await response.json();
-    return data.token;
+    const { token } = useAuthStore.getState();
+    return token || '';
   }
 }

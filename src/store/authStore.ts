@@ -34,13 +34,17 @@ export const useAuthStore = create<AuthStore>()(
           isLoading: false,
         }),
 
-      clearAuth: () =>
+      clearAuth: () => {
+        // Clear the state
         set({
           user: null,
           token: null,
           isAuthenticated: false,
           isLoading: false,
-        }),
+        });
+        // Remove from localStorage
+        localStorage.removeItem('maveraone-auth');
+      },
 
       setLoading: (isLoading) => set({ isLoading }),
 

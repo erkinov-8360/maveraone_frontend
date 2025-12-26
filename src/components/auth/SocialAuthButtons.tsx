@@ -7,10 +7,13 @@ import { GoogleOAuthProvider } from '@/lib/auth/oauth/GoogleOAuthProvider';
 import { FacebookOAuthProvider } from '@/lib/auth/oauth/FacebookOAuthProvider';
 import { authApi } from '@/lib/api/auth';
 import { useAuth } from '@/context/AuthContext';
+import { useAuthStore } from '@/store/authStore';
+import toast from 'react-hot-toast';
 
 export function SocialAuthButtons() {
   const router = useRouter();
   const { refreshUser } = useAuth();
+  const setAuth = useAuthStore((state) => state.setAuth);
   const [isLoading, setIsLoading] = useState(false);
   const googleProvider = new GoogleOAuthProvider();
   const facebookProvider = new FacebookOAuthProvider();
@@ -21,12 +24,13 @@ export function SocialAuthButtons() {
       const code = await googleProvider.authorize();
       const authResponse = await authApi.exchangeCode(code);
 
-      // Store the token
-      localStorage.setItem('auth_token', authResponse.token);
-      localStorage.setItem('user', JSON.stringify(authResponse.user));
+      // Store in Zustand store (which persists to localStorage automatically)
+      setAuth(authResponse.user, authResponse.token);
 
       // Refresh the auth context to update UI
       await refreshUser();
+
+      toast.success('Successfully signed in!');
 
       // Redirect to main page
       router.push('/');
@@ -38,6 +42,7 @@ export function SocialAuthButtons() {
       }
       // Log other errors but don't show to user
       console.error('Google OAuth error:', error);
+      toast.error('Failed to sign in');
     } finally {
       setIsLoading(false);
     }
@@ -49,12 +54,13 @@ export function SocialAuthButtons() {
       const code = await facebookProvider.authorize();
       const authResponse = await authApi.exchangeCode(code);
 
-      // Store the token
-      localStorage.setItem('auth_token', authResponse.token);
-      localStorage.setItem('user', JSON.stringify(authResponse.user));
+      // Store in Zustand store (which persists to localStorage automatically)
+      setAuth(authResponse.user, authResponse.token);
 
       // Refresh the auth context to update UI
       await refreshUser();
+
+      toast.success('Successfully signed in!');
 
       // Redirect to main page
       router.push('/');
@@ -66,6 +72,7 @@ export function SocialAuthButtons() {
       }
       // Log other errors but don't show to user
       console.error('Facebook OAuth error:', error);
+      toast.error('Failed to sign in');
     } finally {
       setIsLoading(false);
     }
