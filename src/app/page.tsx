@@ -6,41 +6,7 @@ import { motion } from 'framer-motion';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Search, CalendarDays, Calendar, Users, Star, StarHalf, ShieldCheck, HeadphonesIcon, Hotel, ChevronDown } from 'lucide-react';
-
-const DESTINATIONS = [
-  {
-    id: 1,
-    name: 'Kyoto, Japan',
-    duration: '5 Days',
-    price: 1200,
-    rating: 4.9,
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBD39wFxJIP89SGlDhCrt0EMthsZVr1zAEv9p77UoYntjX4len_CtOcEnZ6AQ5yfrLKefzZucDEO1XrWABsCJEC5KkUqsC2obnUKilthk0gho3tFhbV8Ej2yw-3AHw1dJiPekErLu4UGpqMR81SkCvsT5QpQKgGgXF4Szbwpqxr2uneNG2vphMbov-HHJsV9GMU83yU51ePTHv3SpyGxYNgdV2U17ccbJPD-M_I8UFLgIDzf6-8WAC63QDxzVpCPKcxkXx-z-HrhklA',
-  },
-  {
-    id: 2,
-    name: 'Santorini, Greece',
-    duration: '7 Days',
-    price: 1800,
-    rating: 4.8,
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDY29yEb7hY7NhUxPBdYNY6fPk3QQ_2o5woYCh7Bz9woBuQ3fL3HdPAR2IjqDEp1-3O_TXcRVeYU6LvPOajJdGmSZYi1KEy2KdoBT2IBIP_x6CxyRRFHGraM9tKpyObgTs_tX7fRCeQ3Mx0wy_kqrxvF3KOHVggJqwpBtFwLrLw_jEYs-DEbnCyBsL0GzCgJHFOVQ5jq9mDOpYj0eiA4E-XVJ3E3wyz61XxIkoba9pRiUZ2hyfuyRHc8g0D2F3a1X9XAhCl6Xel5-GJ',
-  },
-  {
-    id: 3,
-    name: 'Bali, Indonesia',
-    duration: '6 Days',
-    price: 950,
-    rating: 4.7,
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC2Sqfs8ntd2f4SuE6VRu145lMO-HdyEKTz_La3LQ6i4QCQhR-kF2dMcKSo6DtfJ4msROIQwr-0QBsQyNwN5mLlF_rzY5h5RIXEwlUV2glMkw51EFok5k026JCd21inZuuOlGAfMRA3hhQg4a260t2d3fRIX-ZjPqxa1_e81YHkWqgInz7475UQ7H0NFLCpmk-ETVkWuAqi_BcWQqZAYKngfqE09R79aKJizyPHMuL6bPnVrAWTpkcvNoxUCXNBHysghhNsKkQyI3-U',
-  },
-  {
-    id: 4,
-    name: 'Swiss Alps',
-    duration: '5 Days',
-    price: 2100,
-    rating: 5.0,
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB0eJLaEF51Z96bvwZkRh-AMuSknV1-xdFSXsfu63I7RMKuBpYmIg5Rq5QVzgIxhrRzokiVh-QXmEMp-T-Pe_4xn7GxqY9kYR2jg3eJFumerrTalQmPLJxDMvSi3XnXPp1nbT_sSIs7K1vgMWH3Dov-_jhLaEVOvyS531uk03givUxD69KgmACGlUNVinluVqC8b0fBneDLneqds-J6o_EE5MzrpY_msWnLKjZ56azuZIGGx8oNvh3JxruGNv1v2wrD9LSIk0NojYbE',
-  },
-];
+import { MOCK_TOURS } from '@/lib/api/mock/mockTours';
 
 const TESTIMONIALS = [
   {
@@ -255,28 +221,29 @@ export default function HomePage() {
                 variants={staggerContainer}
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
               >
-                {DESTINATIONS.map((dest, index) => (
-                  <motion.div
-                    key={dest.id}
-                    variants={scaleUpVariants}
-                    transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.1 }}
-                    className="flex flex-col gap-3 group cursor-pointer"
-                  >
-                    <div
-                      className="w-full aspect-[4/5] rounded-3xl bg-cover bg-center overflow-hidden relative shadow-md"
-                      style={{ backgroundImage: `url("${dest.image}")` }}
+                {MOCK_TOURS.filter(tour => tour.featured).slice(0, 4).map((tour, index) => (
+                  <Link key={tour.id} href={`/tours/${tour.id}`}>
+                    <motion.div
+                      variants={scaleUpVariants}
+                      transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.1 }}
+                      className="flex flex-col gap-3 group cursor-pointer"
                     >
-                      <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
-                      <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full flex items-center gap-1">
-                        <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                        <span className="text-xs font-bold text-[#111418]">{dest.rating}</span>
+                      <div
+                        className="w-full aspect-[4/5] rounded-3xl bg-cover bg-center overflow-hidden relative shadow-md"
+                        style={{ backgroundImage: `url("${tour.images[0]}")` }}
+                      >
+                        <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
+                        <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full flex items-center gap-1">
+                          <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                          <span className="text-xs font-bold text-[#111418]">{tour.rating}</span>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <h3 className="text-[#111418] text-lg font-bold leading-tight group-hover:text-[#137fec] transition-colors">{dest.name}</h3>
-                      <p className="text-[#617589] text-sm font-normal">{dest.duration} &bull; From ${dest.price.toLocaleString()}</p>
-                    </div>
-                  </motion.div>
+                      <div className="flex flex-col gap-1">
+                        <h3 className="text-[#111418] text-lg font-bold leading-tight group-hover:text-[#137fec] transition-colors">{tour.title}</h3>
+                        <p className="text-[#617589] text-sm font-normal">{tour.duration} Days &bull; From ${tour.price.toLocaleString()}</p>
+                      </div>
+                    </motion.div>
+                  </Link>
                 ))}
               </motion.div>
             </motion.div>

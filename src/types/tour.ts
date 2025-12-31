@@ -13,3 +13,29 @@ export interface Tour {
   startDates: Date[];
   featured: boolean;
 }
+
+export interface ItineraryDay {
+  day: number;
+  title: string;
+  subtitle: string;
+  description: string;
+}
+
+export interface TourReview {
+  id: string;
+  userName: string;
+  userAvatar: string;
+  rating: number;
+  date: string;
+  comment: string;
+}
+
+export interface TourDetail extends Tour {
+  highlights: string[];
+  itinerary: ItineraryDay[];
+  included: string[];
+  excluded: string[];
+  reviews: TourReview[];
+  language: string;
+  discountPercent?: number;
+}
