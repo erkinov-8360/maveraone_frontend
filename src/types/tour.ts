@@ -30,6 +30,11 @@ export interface TourReview {
   comment: string;
 }
 
+export interface TourCoordinates {
+  latitude: number;
+  longitude: number;
+}
+
 export interface TourDetail extends Tour {
   highlights: string[];
   itinerary: ItineraryDay[];
@@ -38,4 +43,5 @@ export interface TourDetail extends Tour {
   reviews: TourReview[];
   language: string;
   discountPercent?: number;
+  coordinates?: TourCoordinates;
 }

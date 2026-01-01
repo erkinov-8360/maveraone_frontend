@@ -97,6 +97,10 @@ export const MOCK_TOUR_DETAILS: Record<string, TourDetail> = {
         comment: 'Shah-i-Zinda was the highlight for me. The blue tiles and intricate patterns are breathtaking. Well organized tour with comfortable accommodations.',
       },
     ],
+    coordinates: {
+      latitude: 39.6547,
+      longitude: 66.9597,
+    },
   },
   '2': {
     id: '2',
@@ -172,6 +176,10 @@ export const MOCK_TOUR_DETAILS: Record<string, TourDetail> = {
         comment: 'The metro stations are like underground palaces! Amazing contrast between old and new Tashkent. Great introduction to Uzbekistan.',
       },
     ],
+    coordinates: {
+      latitude: 41.2995,
+      longitude: 69.2401,
+    },
   },
   '3': {
     id: '3',
@@ -276,6 +284,10 @@ export const MOCK_TOUR_DETAILS: Record<string, TourDetail> = {
         comment: 'The Ark Fortress was incredible! Loved learning about the Silk Road traders. The village visit was a highlight - authentic and welcoming.',
       },
     ],
+    coordinates: {
+      latitude: 39.7747,
+      longitude: 64.4286,
+    },
   },
 };
 

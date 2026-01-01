@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { MOCK_TOURS } from '@/lib/api/mock/mockTours';
 import { MapPin, Clock, Star, ChevronLeft, ChevronRight, Search, SlidersHorizontal, Grid3X3, List, ChevronDown } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select';
 
 const fadeUpVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -126,19 +127,19 @@ export default function ToursPage() {
               <label className="flex flex-col gap-2">
                 <span className="text-sm font-bold text-gray-700">Destination</span>
                 <div className="relative">
-                  <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-600" />
-                  <select
-                    value={destination}
-                    onChange={(e) => setDestination(e.target.value)}
-                    className="w-full h-12 pl-12 pr-10 bg-gray-50 border-transparent rounded-2xl focus:border-blue-600 focus:ring-0 text-sm font-medium text-gray-800 appearance-none cursor-pointer"
-                  >
-                    <option value="all">All Destinations</option>
-                    <option value="samarkand">Samarkand</option>
-                    <option value="bukhara">Bukhara</option>
-                    <option value="tashkent">Tashkent</option>
-                    <option value="khiva">Khiva</option>
-                  </select>
-                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                  <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-600 z-10 pointer-events-none" />
+                  <Select value={destination} onValueChange={setDestination}>
+                    <SelectTrigger className="w-full h-12 pl-12 pr-10 bg-gray-50 border-transparent rounded-2xl focus:border-blue-600 focus:ring-blue-600 text-sm font-medium text-gray-800">
+                      <SelectValue placeholder="All Destinations" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Destinations</SelectItem>
+                      <SelectItem value="samarkand">Samarkand</SelectItem>
+                      <SelectItem value="bukhara">Bukhara</SelectItem>
+                      <SelectItem value="tashkent">Tashkent</SelectItem>
+                      <SelectItem value="khiva">Khiva</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </label>
 
@@ -146,18 +147,18 @@ export default function ToursPage() {
               <label className="flex flex-col gap-2">
                 <span className="text-sm font-bold text-gray-700">Duration</span>
                 <div className="relative">
-                  <Clock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-600" />
-                  <select
-                    value={duration}
-                    onChange={(e) => setDuration(e.target.value)}
-                    className="w-full h-12 pl-12 pr-10 bg-gray-50 border-transparent rounded-2xl focus:border-blue-600 focus:ring-0 text-sm font-medium text-gray-800 appearance-none cursor-pointer"
-                  >
-                    <option value="any">Any Duration</option>
-                    <option value="1-3">1-3 Days</option>
-                    <option value="4-7">4-7 Days</option>
-                    <option value="14+">2 Weeks+</option>
-                  </select>
-                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                  <Clock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-600 z-10 pointer-events-none" />
+                  <Select value={duration} onValueChange={setDuration}>
+                    <SelectTrigger className="w-full h-12 pl-12 pr-10 bg-gray-50 border-transparent rounded-2xl focus:border-blue-600 focus:ring-blue-600 text-sm font-medium text-gray-800">
+                      <SelectValue placeholder="Any Duration" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="any">Any Duration</SelectItem>
+                      <SelectItem value="1-3">1-3 Days</SelectItem>
+                      <SelectItem value="4-7">4-7 Days</SelectItem>
+                      <SelectItem value="14+">2 Weeks+</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </label>
 
@@ -165,18 +166,18 @@ export default function ToursPage() {
               <label className="flex flex-col gap-2">
                 <span className="text-sm font-bold text-gray-700">Difficulty</span>
                 <div className="relative">
-                  <SlidersHorizontal className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-600" />
-                  <select
-                    value={activityType}
-                    onChange={(e) => setActivityType(e.target.value)}
-                    className="w-full h-12 pl-12 pr-10 bg-gray-50 border-transparent rounded-2xl focus:border-blue-600 focus:ring-0 text-sm font-medium text-gray-800 appearance-none cursor-pointer"
-                  >
-                    <option value="all">All Levels</option>
-                    <option value="easy">Easy</option>
-                    <option value="moderate">Moderate</option>
-                    <option value="difficult">Difficult</option>
-                  </select>
-                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                  <SlidersHorizontal className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-600 z-10 pointer-events-none" />
+                  <Select value={activityType} onValueChange={setActivityType}>
+                    <SelectTrigger className="w-full h-12 pl-12 pr-10 bg-gray-50 border-transparent rounded-2xl focus:border-blue-600 focus:ring-blue-600 text-sm font-medium text-gray-800">
+                      <SelectValue placeholder="All Levels" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Levels</SelectItem>
+                      <SelectItem value="easy">Easy</SelectItem>
+                      <SelectItem value="moderate">Moderate</SelectItem>
+                      <SelectItem value="difficult">Difficult</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </label>
 
@@ -184,18 +185,18 @@ export default function ToursPage() {
               <label className="flex flex-col gap-2">
                 <span className="text-sm font-bold text-gray-700">Sort By</span>
                 <div className="relative">
-                  <Star className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-600" />
-                  <select
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value)}
-                    className="w-full h-12 pl-12 pr-10 bg-gray-50 border-transparent rounded-2xl focus:border-blue-600 focus:ring-0 text-sm font-medium text-gray-800 appearance-none cursor-pointer"
-                  >
-                    <option value="recommended">Recommended</option>
-                    <option value="price-low">Price: Low to High</option>
-                    <option value="price-high">Price: High to Low</option>
-                    <option value="rating">Highest Rated</option>
-                  </select>
-                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                  <Star className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-600 z-10 pointer-events-none" />
+                  <Select value={sortBy} onValueChange={setSortBy}>
+                    <SelectTrigger className="w-full h-12 pl-12 pr-10 bg-gray-50 border-transparent rounded-2xl focus:border-blue-600 focus:ring-blue-600 text-sm font-medium text-gray-800">
+                      <SelectValue placeholder="Recommended" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="recommended">Recommended</SelectItem>
+                      <SelectItem value="price-low">Price: Low to High</SelectItem>
+                      <SelectItem value="price-high">Price: High to Low</SelectItem>
+                      <SelectItem value="rating">Highest Rated</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </label>
             </div>

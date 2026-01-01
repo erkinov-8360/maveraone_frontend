@@ -15,6 +15,7 @@ import {
 import { getTourDetail } from '@/lib/api/mock/mockTourDetails';
 import { MOCK_TOURS } from '@/lib/api/mock/mockTours';
 import { Clock, Users, Globe, Star, Check, X, MapPin, Calendar, Play, Phone, ChevronLeft, Minus, Plus } from 'lucide-react';
+import { YandexMap } from '@/components/ui/YandexMap';
 
 const fadeUpVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -596,29 +597,28 @@ export default function TourDetailPage({ params }: TourDetailPageProps) {
         </div>
       </div>
 
-      {/* Map Section Placeholder */}
+      {/* Map Section */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="w-full h-[400px] mt-10 bg-gray-200 relative overflow-hidden"
+        className="w-full mt-10"
       >
-        <img
-          src={tour.images[0]}
-          alt={`Map view of ${tour.destination}`}
-          className="w-full h-full object-cover opacity-50"
-        />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-white text-gray-900 px-6 py-3 rounded-full shadow-lg font-bold flex items-center gap-2"
-          >
-            <MapPin className="w-5 h-5 text-blue-600" />
-            View on Map
-          </motion.button>
+        <div className="container mx-auto px-4 md:px-10 max-w-7xl mb-6">
+          <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+            <MapPin className="w-6 h-6 text-blue-600" />
+            Tour Location
+          </h3>
+          <p className="text-gray-500 mt-1">Explore {tour.destination} on the map</p>
         </div>
+        <YandexMap
+          latitude={tour.coordinates?.latitude}
+          longitude={tour.coordinates?.longitude}
+          zoom={13}
+          markerTitle={tour.destination}
+          className="w-full h-[400px]"
+        />
       </motion.div>
     </div>
   );

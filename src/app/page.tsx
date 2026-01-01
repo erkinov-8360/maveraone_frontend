@@ -7,6 +7,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Search, CalendarDays, Calendar, Users, Star, StarHalf, ShieldCheck, HeadphonesIcon, Hotel, ChevronDown } from 'lucide-react';
 import { MOCK_TOURS } from '@/lib/api/mock/mockTours';
+import { DatePicker } from '@/components/ui/DatePicker';
 
 const TESTIMONIALS = [
   {
@@ -96,8 +97,8 @@ function StarRating({ rating }: { rating: number }) {
 
 export default function HomePage() {
   const [destination, setDestination] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [startDate, setStartDate] = useState<Date | undefined>();
+  const [endDate, setEndDate] = useState<Date | undefined>();
   const [guests, setGuests] = useState('');
   const [email, setEmail] = useState('');
 
@@ -151,32 +152,20 @@ export default function HomePage() {
                     className="w-full h-12 px-3 text-[#111418] placeholder:text-[#617589] bg-transparent border-none focus:ring-0 focus:outline-none text-sm font-medium"
                   />
                 </div>
-                <div className="flex w-full items-center px-4 lg:px-6 border-b lg:border-b-0 lg:border-r border-[#f0f2f4]">
-                  <CalendarDays className="w-5 h-5 text-[#617589]" />
-                  <input
-                    type="text"
-                    value={startDate}
-                    onChange={(e) => setStartDate(e.target.value)}
+                <div className="flex w-full items-center lg:border-r border-[#f0f2f4]">
+                  <DatePicker
+                    date={startDate}
+                    onDateChange={setStartDate}
                     placeholder="Start Date"
-                    onFocus={(e) => (e.target.type = 'date')}
-                    onBlur={(e) => {
-                      if (!e.target.value) e.target.type = 'text';
-                    }}
-                    className="w-full h-12 px-3 text-[#111418] placeholder:text-[#617589] bg-transparent border-none focus:ring-0 focus:outline-none text-sm font-medium"
+                    className="border-none focus:ring-0 rounded-none h-12 bg-transparent text-sm font-medium text-[#111418] placeholder:text-[#617589]"
                   />
                 </div>
-                <div className="flex w-full items-center px-4 lg:px-6 border-b lg:border-b-0 lg:border-r border-[#f0f2f4]">
-                  <Calendar className="w-5 h-5 text-[#617589]" />
-                  <input
-                    type="text"
-                    value={endDate}
-                    onChange={(e) => setEndDate(e.target.value)}
+                <div className="flex w-full items-center lg:border-r border-[#f0f2f4]">
+                  <DatePicker
+                    date={endDate}
+                    onDateChange={setEndDate}
                     placeholder="End Date"
-                    onFocus={(e) => (e.target.type = 'date')}
-                    onBlur={(e) => {
-                      if (!e.target.value) e.target.type = 'text';
-                    }}
-                    className="w-full h-12 px-3 text-[#111418] placeholder:text-[#617589] bg-transparent border-none focus:ring-0 focus:outline-none text-sm font-medium"
+                    className="border-none focus:ring-0 rounded-none h-12 bg-transparent text-sm font-medium text-[#111418] placeholder:text-[#617589]"
                   />
                 </div>
                 <div className="flex w-full items-center px-4 lg:px-6">
