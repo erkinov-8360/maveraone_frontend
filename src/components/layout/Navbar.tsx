@@ -14,7 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useTranslations } from '@/hooks/useTranslations';
+import { useTranslations } from '@/context/TranslationsContext';
 import { locales, localeNames } from '@/i18n/config';
 
 export function Navbar() {

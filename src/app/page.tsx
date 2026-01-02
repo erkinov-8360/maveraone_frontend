@@ -8,7 +8,7 @@ import { Footer } from '@/components/layout/Footer';
 import { Search, CalendarDays, Calendar, Users, Star, StarHalf, ShieldCheck, HeadphonesIcon, Hotel, ChevronDown } from 'lucide-react';
 import { MOCK_TOURS } from '@/lib/api/mock/mockTours';
 import { DatePicker } from '@/components/ui/DatePicker';
-import { useTranslations } from '@/hooks/useTranslations';
+import { useTranslations } from '@/context/TranslationsContext';
 
 const TESTIMONIALS = [
   {

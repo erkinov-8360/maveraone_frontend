@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
+import { TranslationsProvider } from "@/context/TranslationsContext";
 import { QueryProvider } from "@/providers/QueryProvider";
 import { Toaster } from "react-hot-toast";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -29,10 +30,12 @@ export default function RootLayout({
       >
         <SmoothScroll />
         <QueryProvider>
-          <AuthProvider>
-            {children}
-            <Toaster position="top-right" />
-          </AuthProvider>
+          <TranslationsProvider>
+            <AuthProvider>
+              {children}
+              <Toaster position="top-right" />
+            </AuthProvider>
+          </TranslationsProvider>
         </QueryProvider>
       </body>
     </html>
