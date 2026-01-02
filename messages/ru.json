@@ -1,0 +1,75 @@
+{
+  "common": {
+    "search": "Поиск",
+    "login": "Войти",
+    "signup": "Регистрация",
+    "logout": "Выйти",
+    "profile": "Профиль",
+    "myBookings": "Мои бронирования",
+    "myAccount": "Мой аккаунт"
+  },
+  "navbar": {
+    "home": "Главная",
+    "tours": "Туры",
+    "virtualTour": "360° тур",
+    "about": "О нас"
+  },
+  "hero": {
+    "title": "Откройте для себя древние чудеса Узбекистана",
+    "subtitle": "Путешествие по легендарным городам Великого шёлкового пути: Самарканд, Бухара и Хива",
+    "exploreButton": "Посмотреть туры",
+    "searchPlaceholder": "Куда вы хотите поехать?",
+    "startDate": "Дата начала",
+    "endDate": "Дата окончания",
+    "guests": "Гости"
+  },
+  "tours": {
+    "heading": "Популярные туры",
+    "viewAll": "Все туры",
+    "perPerson": "на человека",
+    "days": "дней",
+    "duration": "Продолжительность",
+    "difficulty": "Сложность",
+    "groupSize": "Размер группы",
+    "people": "человек",
+    "bookNow": "Забронировать",
+    "learnMore": "Подробнее",
+    "filters": {
+      "destination": "Направление",
+      "allDestinations": "Все направления",
+      "samarkand": "Самарканд",
+      "bukhara": "Бухара",
+      "tashkent": "Ташкент",
+      "khiva": "Хива",
+      "duration": "Продолжительность",
+      "anyDuration": "Любая",
+      "1to3days": "1-3 дня",
+      "4to7days": "4-7 дней",
+      "2weeksPlus": "2 недели+",
+      "difficulty": "Сложность",
+      "allLevels": "Все уровни",
+      "easy": "Легко",
+      "moderate": "Средне",
+      "difficult": "Сложно",
+      "sortBy": "Сортировка",
+      "recommended": "Рекомендуемые",
+      "priceLowToHigh": "Цена: по возрастанию",
+      "priceHighToLow": "Цена: по убыванию",
+      "highestRated": "Высокий рейтинг",
+      "findTours": "Найти туры"
+    }
+  },
+  "auth": {
+    "emailAddress": "Email адрес",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердите пароль",
+    "fullName": "Полное имя",
+    "rememberMe": "Запомнить меня",
+    "forgotPassword": "Забыли пароль?",
+    "dontHaveAccount": "Нет аккаунта?",
+    "alreadyHaveAccount": "Уже есть аккаунт?",
+    "signInWithGoogle": "Войти через Google",
+    "signInWithFacebook": "Войти через Facebook",
+    "or": "или"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "common": {
+    "search": "搜索",
+    "login": "登录",
+    "signup": "注册",
+    "logout": "退出",
+    "profile": "个人资料",
+    "myBookings": "我的预订",
+    "myAccount": "我的账户"
+  },
+  "navbar": {
+    "home": "首页",
+    "tours": "旅游",
+    "virtualTour": "360°全景",
+    "about": "关于我们"
+  },
+  "hero": {
+    "title": "探索乌兹别克斯坦的古代奇迹",
+    "subtitle": "游览传奇的丝绸之路城市：撒马尔罕、布哈拉和希瓦",
+    "exploreButton": "浏览旅游",
+    "searchPlaceholder": "您想去哪里？",
+    "startDate": "开始日期",
+    "endDate": "结束日期",
+    "guests": "客人"
+  },
+  "tours": {
+    "heading": "热门旅游",
+    "viewAll": "查看所有旅游",
+    "perPerson": "每人",
+    "days": "天",
+    "duration": "持续时间",
+    "difficulty": "难度",
+    "groupSize": "团队规模",
+    "people": "人",
+    "bookNow": "立即预订",
+    "learnMore": "了解更多",
+    "filters": {
+      "destination": "目的地",
+      "allDestinations": "所有目的地",
+      "samarkand": "撒马尔罕",
+      "bukhara": "布哈拉",
+      "tashkent": "塔什干",
+      "khiva": "希瓦",
+      "duration": "持续时间",
+      "anyDuration": "任意时长",
+      "1to3days": "1-3天",
+      "4to7days": "4-7天",
+      "2weeksPlus": "2周以上",
+      "difficulty": "难度",
+      "allLevels": "所有级别",
+      "easy": "简单",
+      "moderate": "中等",
+      "difficult": "困难",
+      "sortBy": "排序",
+      "recommended": "推荐",
+      "priceLowToHigh": "价格：从低到高",
+      "priceHighToLow": "价格：从高到低",
+      "highestRated": "评分最高",
+      "findTours": "查找旅游"
+    }
+  },
+  "auth": {
+    "emailAddress": "电子邮件地址",
+    "password": "密码",
+    "confirmPassword": "确认密码",
+    "fullName": "全名",
+    "rememberMe": "记住我",
+    "forgotPassword": "忘记密码？",
+    "dontHaveAccount": "还没有账户？",
+    "alreadyHaveAccount": "已有账户？",
+    "signInWithGoogle": "使用Google登录",
+    "signInWithFacebook": "使用Facebook登录",
+    "or": "或"
+  }
+}

@@ -8,6 +8,7 @@ import { Footer } from '@/components/layout/Footer';
 import { Search, CalendarDays, Calendar, Users, Star, StarHalf, ShieldCheck, HeadphonesIcon, Hotel, ChevronDown } from 'lucide-react';
 import { MOCK_TOURS } from '@/lib/api/mock/mockTours';
 import { DatePicker } from '@/components/ui/DatePicker';
+import { useTranslations } from '@/hooks/useTranslations';
 
 const TESTIMONIALS = [
   {
@@ -96,6 +97,7 @@ function StarRating({ rating }: { rating: number }) {
 }
 
 export default function HomePage() {
+  const { t } = useTranslations();
   const [destination, setDestination] = useState('');
   const [startDate, setStartDate] = useState<Date | undefined>();
   const [endDate, setEndDate] = useState<Date | undefined>();
@@ -122,7 +124,7 @@ export default function HomePage() {
                 transition={{ duration: 0.8, ease: 'easeOut' }}
                 className="text-white text-4xl md:text-6xl lg:text-7xl font-black leading-tight tracking-[-0.033em] drop-shadow-lg"
               >
-                Discover the World&apos;s Hidden Gems
+                {t('hero.title')}
               </motion.h1>
               <motion.h2
                 initial={{ opacity: 0, y: 40 }}
@@ -130,7 +132,7 @@ export default function HomePage() {
                 transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
                 className="text-white/90 text-lg md:text-xl font-medium leading-relaxed drop-shadow-md max-w-2xl mx-auto"
               >
-                Curated tours and exclusive deals for the modern explorer. Start your journey with Maveraone.
+                {t('hero.subtitle')}
               </motion.h2>
             </div>
 
@@ -141,45 +143,45 @@ export default function HomePage() {
               transition={{ duration: 0.8, ease: 'easeOut', delay: 0.4 }}
               className="w-full max-w-[1024px] mt-10 z-10"
             >
-              <div className="flex flex-col lg:flex-row w-full bg-white rounded-full p-2 shadow-2xl gap-2 lg:gap-0">
-                <div className="flex w-full items-center px-4 lg:px-6 border-b lg:border-b-0 lg:border-r border-[#f0f2f4]">
+              <div className="flex flex-col lg:flex-row w-full bg-white rounded-2xl lg:rounded-full p-2 shadow-2xl gap-2 lg:gap-0">
+                <div className="flex w-full items-center px-4 lg:px-6 rounded-xl lg:rounded-none border-b lg:border-b-0 lg:border-r border-[#f0f2f4]">
                   <Search className="w-5 h-5 text-[#617589]" />
                   <input
                     type="text"
                     value={destination}
                     onChange={(e) => setDestination(e.target.value)}
-                    placeholder="Where do you want to go?"
+                    placeholder={t('hero.searchPlaceholder')}
                     className="w-full h-12 px-3 text-[#111418] placeholder:text-[#617589] bg-transparent border-none focus:ring-0 focus:outline-none text-sm font-medium"
                   />
                 </div>
-                <div className="flex w-full items-center lg:border-r border-[#f0f2f4]">
+                <div className="flex w-full items-center rounded-xl lg:rounded-none lg:border-r border-[#f0f2f4]">
                   <DatePicker
                     date={startDate}
                     onDateChange={setStartDate}
-                    placeholder="Start Date"
-                    className="border-none focus:ring-0 rounded-none h-12 bg-transparent text-sm font-medium text-[#111418] placeholder:text-[#617589]"
+                    placeholder={t('hero.startDate')}
+                    className="border-none focus:ring-0 rounded-xl lg:rounded-none h-12 bg-transparent text-sm font-medium text-[#111418] placeholder:text-[#617589]"
                   />
                 </div>
-                <div className="flex w-full items-center lg:border-r border-[#f0f2f4]">
+                <div className="flex w-full items-center rounded-xl lg:rounded-none lg:border-r border-[#f0f2f4]">
                   <DatePicker
                     date={endDate}
                     onDateChange={setEndDate}
-                    placeholder="End Date"
-                    className="border-none focus:ring-0 rounded-none h-12 bg-transparent text-sm font-medium text-[#111418] placeholder:text-[#617589]"
+                    placeholder={t('hero.endDate')}
+                    className="border-none focus:ring-0 rounded-xl lg:rounded-none h-12 bg-transparent text-sm font-medium text-[#111418] placeholder:text-[#617589]"
                   />
                 </div>
-                <div className="flex w-full items-center px-4 lg:px-6">
+                <div className="flex w-full items-center px-4 lg:px-6 rounded-xl lg:rounded-none">
                   <Users className="w-5 h-5 text-[#617589]" />
                   <input
                     type="number"
                     value={guests}
                     onChange={(e) => setGuests(e.target.value)}
-                    placeholder="Guests"
+                    placeholder={t('hero.guests')}
                     className="w-full h-12 px-3 text-[#111418] placeholder:text-[#617589] bg-transparent border-none focus:ring-0 focus:outline-none text-sm font-medium"
                   />
                 </div>
                 <button className="flex min-w-[120px] cursor-pointer items-center justify-center rounded-full bg-[#137fec] text-white text-sm font-bold h-12 px-6 hover:bg-blue-600 transition-colors">
-                  Search
+                  {t('common.search')}
                 </button>
               </div>
             </motion.div>
