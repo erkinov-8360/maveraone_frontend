@@ -12,7 +12,8 @@
     "home": "Главная",
     "tours": "Туры",
     "virtualTour": "360° тур",
-    "about": "О нас"
+    "about": "О нас",
+    "blog": "Блог"
   },
   "hero": {
     "title": "Откройте для себя древние чудеса Узбекистана",
@@ -71,5 +72,44 @@
     "signInWithGoogle": "Войти через Google",
     "signInWithFacebook": "Войти через Facebook",
     "or": "или"
+  },
+  "blog": {
+    "heroTitle": "Откройте для себя невиданное",
+    "heroSubtitle": "Истории, подлинные гиды и важные советы для вашего следующего приключения в сердце Шелкового пути.",
+    "travelJournal": "Дневник путешественника",
+    "featured": "Рекомендуемое",
+    "readFullStory": "Читать полностью",
+    "search": "Поиск",
+    "searchPlaceholder": "Поиск статей...",
+    "categories": "Категории",
+    "trendingNow": "Популярное сейчас",
+    "popularTags": "Популярные теги",
+    "newsletterTitle": "Подпишитесь на нашу рассылку",
+    "newsletterDesc": "Получайте советы по путешествиям, эксклюзивные гиды и скрытые жемчужины Узбекистана прямо на вашу почту. Никакого спама, обещаем.",
+    "emailPlaceholder": "Введите ваш email адрес",
+    "subscribe": "Подписаться",
+    "signIn": "Войти"
+  },
+  "footer": {
+    "company": "Компания",
+    "aboutUs": "О нас",
+    "careers": "Карьера",
+    "blog": "Блог",
+    "press": "Пресса",
+    "support": "Поддержка",
+    "helpCenter": "Центр помощи",
+    "safety": "Безопасность",
+    "cancellation": "Отмена",
+    "reportFraud": "Сообщить о мошенничестве",
+    "destinations": "Направления",
+    "japan": "Япония",
+    "greece": "Греция",
+    "indonesia": "Индонезия",
+    "switzerland": "Швейцария",
+    "contact": "Контакты",
+    "contactUs": "Свяжитесь с нами",
+    "copyright": "© {{year}} Maveraone. Все права защищены.",
+    "privacyPolicy": "Политика конфиденциальности",
+    "termsOfService": "Условия обслуживания"
   }
 }

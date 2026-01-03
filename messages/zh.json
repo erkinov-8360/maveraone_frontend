@@ -12,7 +12,8 @@
     "home": "首页",
     "tours": "旅游",
     "virtualTour": "360°全景",
-    "about": "关于我们"
+    "about": "关于我们",
+    "blog": "博客"
   },
   "hero": {
     "title": "探索乌兹别克斯坦的古代奇迹",
@@ -71,5 +72,44 @@
     "signInWithGoogle": "使用Google登录",
     "signInWithFacebook": "使用Facebook登录",
     "or": "或"
+  },
+  "blog": {
+    "heroTitle": "发现未知之美",
+    "heroSubtitle": "丝绸之路中心下一次冒险的故事、真实指南和重要提示。",
+    "travelJournal": "旅行日志",
+    "featured": "精选",
+    "readFullStory": "阅读完整故事",
+    "search": "搜索",
+    "searchPlaceholder": "搜索文章...",
+    "categories": "分类",
+    "trendingNow": "热门推荐",
+    "popularTags": "热门标签",
+    "newsletterTitle": "订阅我们的通讯",
+    "newsletterDesc": "获取旅行提示、独家指南和乌兹别克斯坦的隐藏宝石，直接发送到您的收件箱。我们保证不发垃圾邮件。",
+    "emailPlaceholder": "输入您的电子邮件地址",
+    "subscribe": "订阅",
+    "signIn": "登录"
+  },
+  "footer": {
+    "company": "公司",
+    "aboutUs": "关于我们",
+    "careers": "职业机会",
+    "blog": "博客",
+    "press": "新闻",
+    "support": "支持",
+    "helpCenter": "帮助中心",
+    "safety": "安全",
+    "cancellation": "取消",
+    "reportFraud": "举报欺诈",
+    "destinations": "目的地",
+    "japan": "日本",
+    "greece": "希腊",
+    "indonesia": "印度尼西亚",
+    "switzerland": "瑞士",
+    "contact": "联系",
+    "contactUs": "联系我们",
+    "copyright": "© {{year}} Maveraone. 版权所有。",
+    "privacyPolicy": "隐私政策",
+    "termsOfService": "服务条款"
   }
 }

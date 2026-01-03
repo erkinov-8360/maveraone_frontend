@@ -5,6 +5,7 @@ import { User, LoginCredentials, RegisterCredentials } from '@/types/auth';
 import { authService } from '@/lib/auth';
 import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/config/routes';
+import { useAuthStore } from '@/store/authStore';
 
 interface AuthContextType {
   user: User | null;
@@ -19,9 +20,17 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
+  // Subscribe to Zustand store for real-time updates
+  const storeUser = useAuthStore((state) => state.user);
+  const storeIsAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+
+  // Sync with Zustand store whenever it changes
+  useEffect(() => {
+    setUser(storeUser);
+  }, [storeUser]);
 
   // Load user on mount
   useEffect(() => {

@@ -25,7 +25,8 @@
     "home": "Bosh sahifa",
     "tours": "Sayohatlar",
     "virtualTour": "360° sayohat",
-    "about": "Biz haqimizda"
+    "about": "Biz haqimizda",
+    "blog": "Blog"
   },
   "hero": {
     "title": "O'zbekistonning qadimiy mo'jizalarini kashf eting",
@@ -265,6 +266,23 @@
     "deleteAccount": "Hisobni o'chirish",
     "deleteAccountDesc": "Hisobingizni butunlay o'chiring",
     "delete": "O'chirish"
+  },
+  "blog": {
+    "heroTitle": "Ko'rinmas Joylarni Kashf Eting",
+    "heroSubtitle": "Ipak yo'lining markazidagi keyingi sarguzashtingiz uchun hikoyalar, asl qo'llanmalar va muhim maslahatlar.",
+    "travelJournal": "Sayohat Jurnali",
+    "featured": "Taniqli",
+    "readFullStory": "To'liq Hikoyani O'qing",
+    "search": "Qidirish",
+    "searchPlaceholder": "Maqolalarni qidirish...",
+    "categories": "Kategoriyalar",
+    "trendingNow": "Hozir Mashhur",
+    "popularTags": "Ommabop Teglar",
+    "newsletterTitle": "Bizning Axborot Byulletenimizga Qo'shiling",
+    "newsletterDesc": "O'zbekistonning sayohat maslahatlari, maxsus qo'llanmalar va yashirin marvaridlarini to'g'ridan-to'g'ri pochtangizga oling. Spam yo'q, va'da beramiz.",
+    "emailPlaceholder": "Elektron pochta manzilingizni kiriting",
+    "subscribe": "Obuna bo'lish",
+    "signIn": "Kirish"
   },
   "footer": {
     "company": "Kompaniya",

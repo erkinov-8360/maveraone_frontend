@@ -41,6 +41,9 @@ export function Navbar() {
           <Link href="/destinations" className="text-white text-sm font-medium hover:text-[#137fec] transition-colors leading-normal">
             {t('navbar.virtualTour')}
           </Link>
+          <Link href="/blogs" className="text-white text-sm font-medium hover:text-[#137fec] transition-colors leading-normal">
+            {t('navbar.blog')}
+          </Link>
           <Link href="/about" className="text-white text-sm font-medium hover:text-[#137fec] transition-colors leading-normal">
             {t('navbar.about')}
           </Link>

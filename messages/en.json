@@ -25,7 +25,8 @@
     "home": "Home",
     "tours": "Tours",
     "virtualTour": "360° tour",
-    "about": "About"
+    "about": "About",
+    "blog": "Blog"
   },
   "hero": {
     "title": "Discover the Ancient Wonders of Uzbekistan",
@@ -265,6 +266,23 @@
     "deleteAccount": "Delete Account",
     "deleteAccountDesc": "Permanently delete your account",
     "delete": "Delete"
+  },
+  "blog": {
+    "heroTitle": "Discover the Unseen",
+    "heroSubtitle": "Stories, authentic guides, and essential tips for your next adventure in the heart of the Silk Road.",
+    "travelJournal": "The Travel Journal",
+    "featured": "Featured",
+    "readFullStory": "Read Full Story",
+    "search": "Search",
+    "searchPlaceholder": "Search articles...",
+    "categories": "Categories",
+    "trendingNow": "Trending Now",
+    "popularTags": "Popular Tags",
+    "newsletterTitle": "Join Our Newsletter",
+    "newsletterDesc": "Get travel tips, exclusive guides, and hidden gems of Uzbekistan delivered straight to your inbox. No spam, we promise.",
+    "emailPlaceholder": "Enter your email address",
+    "subscribe": "Subscribe",
+    "signIn": "Sign In"
   },
   "footer": {
     "company": "Company",

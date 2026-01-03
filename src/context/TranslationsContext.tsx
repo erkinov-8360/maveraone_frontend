@@ -25,8 +25,10 @@ const TranslationsContext = createContext<TranslationsContextType | undefined>(u
 export function TranslationsProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>(defaultLocale);
   const [currentMessages, setCurrentMessages] = useState(messages[defaultLocale]);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     // Load saved locale from localStorage on mount
     const savedLocale = (localStorage.getItem('locale') || defaultLocale) as Locale;
     if (savedLocale && (savedLocale === 'en' || savedLocale === 'uz' || savedLocale === 'ru' || savedLocale === 'zh')) {
@@ -55,6 +57,19 @@ export function TranslationsProvider({ children }: { children: ReactNode }) {
 
     return typeof value === 'string' ? value : key;
   };
+
+  // Show loading screen until we've loaded the locale from localStorage
+  // This prevents hydration mismatch and flash of wrong language
+  if (!isMounted) {
+    return (
+      <div className="fixed inset-0 bg-white flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+          <p className="text-slate-600 text-sm font-medium">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <TranslationsContext.Provider value={{ locale, setLocale, t }}>
