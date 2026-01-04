@@ -53,7 +53,7 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-5 border-t border-[#f0f2f4]">
-          <p className="text-[#617589] text-sm">{t('footer.copyright', { year: currentYear })}</p>
+          <p className="text-[#617589] text-sm">{t('footer.copyright').replace('{year}', currentYear.toString())}</p>
           <div className="flex gap-6">
             <Link href="/privacy" className="text-[#617589] text-sm hover:text-[#137fec]">{t('footer.privacyPolicy')}</Link>
             <Link href="/terms" className="text-[#617589] text-sm hover:text-[#137fec]">{t('footer.termsOfService')}</Link>
