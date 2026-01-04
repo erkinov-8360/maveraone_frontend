@@ -135,7 +135,7 @@ export default function HomePage() {
           <Navbar />
 
           <div className="flex flex-col items-center justify-center flex-1 px-4 md:px-10 pb-10 z-10 w-full max-w-[1400px] mx-auto">
-            <div className="flex flex-col gap-6 text-center max-w-[800px]">
+            <div className="flex flex-col gap-5 text-center max-w-[850px]">
               <motion.h1
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
