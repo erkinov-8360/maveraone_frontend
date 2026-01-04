@@ -128,21 +128,6 @@ export default function TourDetailPage({ params }: TourDetailPageProps) {
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%), url("${tour.images[0]}")`,
         }}
       >
-        {/* Back Button */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Link
-            href="/tours"
-            className="absolute top-6 left-6 flex items-center gap-2 text-white/90 hover:text-white transition-colors bg-white/10 backdrop-blur-md px-4 py-2 rounded-full"
-          >
-            <ChevronLeft className="w-5 h-5" />
-            <span className="font-medium">Back to Tours</span>
-          </Link>
-        </motion.div>
-
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
           <div className="max-w-4xl flex flex-col gap-4 items-center">
             {tour.featured && (

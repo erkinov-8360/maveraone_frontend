@@ -9,20 +9,24 @@ import { motion } from 'framer-motion';
 import { Globe, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { SocialAuthButtons } from '@/components/auth/SocialAuthButtons';
+import { Footer } from '@/components/layout/Footer';
 import { ROUTES } from '@/config/routes';
 import toast from 'react-hot-toast';
+import { useTranslations } from '@/context/TranslationsContext';
 
-const loginSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
+const getLoginSchema = (t: (key: string) => string) => z.object({
+  email: z.string().email(t('auth.validation.invalidEmail')),
+  password: z.string().min(8, t('auth.validation.passwordMinLength8')),
 });
 
-type LoginFormData = z.infer<typeof loginSchema>;
-
 export default function LoginPage() {
+  const { t } = useTranslations();
   const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+
+  const loginSchema = getLoginSchema(t);
+  type LoginFormData = z.infer<typeof loginSchema>;
 
   const {
     register,
@@ -36,9 +40,9 @@ export default function LoginPage() {
     setIsLoading(true);
     try {
       await login(data);
-      toast.success('Login successful!');
+      toast.success(t('auth.successfullySignedIn'));
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Login failed');
+      toast.error(error instanceof Error ? error.message : t('auth.failedToSignIn'));
     } finally {
       setIsLoading(false);
     }
@@ -78,10 +82,10 @@ export default function LoginPage() {
           {/* Header */}
           <div className="flex flex-col items-center mb-8">
             <h1 className="text-slate-900 tracking-tight text-[32px] font-bold leading-tight text-center mb-2">
-              Welcome Back
+              {t('auth.welcomeBack')}
             </h1>
             <p className="text-slate-500 text-base font-normal leading-normal text-center">
-              Log in to continue your journey with Maveraone.
+              {t('auth.loginSubtitle')}
             </p>
           </div>
 
@@ -89,14 +93,14 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
             {/* Email */}
             <div className="flex flex-col w-full">
-              <span className="text-slate-900 text-sm font-bold leading-normal pb-2 ml-1">Email</span>
+              <span className="text-slate-900 text-sm font-bold leading-normal pb-2 ml-1">{t('common.email')}</span>
               <div className="group relative">
                 <div className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors">
                   <Mail className="w-5 h-5" />
                 </div>
                 <input
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder={t('auth.enterEmail')}
                   className={`h-12 w-full rounded-full border ${
                     errors.email ? 'border-red-400' : 'border-slate-200'
                   } bg-slate-50 pl-11 pr-4 text-base font-normal text-slate-900 placeholder-slate-400 outline-none transition-all focus:border-blue-600 focus:ring-2 focus:ring-blue-600/50 focus:bg-white`}
@@ -111,7 +115,7 @@ export default function LoginPage() {
             {/* Password */}
             <div className="flex flex-col w-full">
               <div className="flex justify-between items-center pb-2 ml-1">
-                <span className="text-slate-900 text-sm font-bold leading-normal">Password</span>
+                <span className="text-slate-900 text-sm font-bold leading-normal">{t('common.password')}</span>
               </div>
               <div className="group relative">
                 <div className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors">
@@ -119,7 +123,7 @@ export default function LoginPage() {
                 </div>
                 <input
                   type={showPassword ? 'text' : 'password'}
-                  placeholder="Enter your password"
+                  placeholder={t('auth.enterPassword')}
                   className={`h-12 w-full rounded-full border ${
                     errors.password ? 'border-red-400' : 'border-slate-200'
                   } bg-slate-50 pl-11 pr-12 text-base font-normal text-slate-900 placeholder-slate-400 outline-none transition-all focus:border-blue-600 focus:ring-2 focus:ring-blue-600/50 focus:bg-white`}
@@ -144,7 +148,7 @@ export default function LoginPage() {
                 href={ROUTES.FORGOT_PASSWORD}
                 className="text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors"
               >
-                Forgot Password?
+                {t('auth.forgotPassword')}
               </Link>
             </div>
 
@@ -157,7 +161,7 @@ export default function LoginPage() {
               {isLoading ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
-                'Sign In'
+                t('auth.signIn')
               )}
             </button>
           </form>
@@ -165,7 +169,7 @@ export default function LoginPage() {
           {/* Divider */}
           <div className="relative flex py-8 items-center">
             <div className="flex-grow border-t border-slate-200" />
-            <span className="flex-shrink-0 mx-4 text-slate-400 text-sm font-medium">Or continue with</span>
+            <span className="flex-shrink-0 mx-4 text-slate-400 text-sm font-medium">{t('auth.orContinueWith')}</span>
             <div className="flex-grow border-t border-slate-200" />
           </div>
 
@@ -175,12 +179,12 @@ export default function LoginPage() {
           {/* Sign Up Link */}
           <div className="text-center mt-8">
             <p className="text-slate-500 text-sm">
-              Don&apos;t have an account?{' '}
+              {t('auth.dontHaveAccount')}{' '}
               <Link
                 href={ROUTES.REGISTER}
                 className="text-blue-600 hover:text-blue-700 font-bold transition-colors"
               >
-                Sign Up
+                {t('auth.signUp')}
               </Link>
             </p>
           </div>

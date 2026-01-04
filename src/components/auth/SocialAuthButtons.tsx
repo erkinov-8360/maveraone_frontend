@@ -7,6 +7,7 @@ import { FacebookOAuthProvider } from '@/lib/auth/oauth/FacebookOAuthProvider';
 import { authApi } from '@/lib/api/auth';
 import { useAuth } from '@/context/AuthContext';
 import { useAuthStore } from '@/store/authStore';
+import { useTranslations } from '@/context/TranslationsContext';
 import toast from 'react-hot-toast';
 
 interface SocialAuthButtonsProps {
@@ -14,6 +15,7 @@ interface SocialAuthButtonsProps {
 }
 
 export function SocialAuthButtons({ variant = 'row' }: SocialAuthButtonsProps) {
+  const { t } = useTranslations();
   const router = useRouter();
   const { refreshUser } = useAuth();
   const setAuth = useAuthStore((state) => state.setAuth);
@@ -33,7 +35,7 @@ export function SocialAuthButtons({ variant = 'row' }: SocialAuthButtonsProps) {
       // Refresh the auth context to update UI
       await refreshUser();
 
-      toast.success('Successfully signed in!');
+      toast.success(t('auth.successfullySignedIn'));
 
       // Redirect to main page
       router.push('/');
@@ -45,7 +47,7 @@ export function SocialAuthButtons({ variant = 'row' }: SocialAuthButtonsProps) {
       }
       // Log other errors but don't show to user
       console.error('Google OAuth error:', error);
-      toast.error('Failed to sign in');
+      toast.error(t('auth.failedToSignIn'));
     } finally {
       setIsLoading(false);
     }
@@ -63,7 +65,7 @@ export function SocialAuthButtons({ variant = 'row' }: SocialAuthButtonsProps) {
       // Refresh the auth context to update UI
       await refreshUser();
 
-      toast.success('Successfully signed in!');
+      toast.success(t('auth.successfullySignedIn'));
 
       // Redirect to main page
       router.push('/');
@@ -75,7 +77,7 @@ export function SocialAuthButtons({ variant = 'row' }: SocialAuthButtonsProps) {
       }
       // Log other errors but don't show to user
       console.error('Facebook OAuth error:', error);
-      toast.error('Failed to sign in');
+      toast.error(t('auth.failedToSignIn'));
     } finally {
       setIsLoading(false);
     }
@@ -92,7 +94,7 @@ export function SocialAuthButtons({ variant = 'row' }: SocialAuthButtonsProps) {
         type="button"
         onClick={handleGoogleLogin}
         disabled={isLoading}
-        className="flex flex-1 items-center justify-center gap-3 rounded-full border border-slate-200 bg-white h-12 px-6 text-sm font-bold text-slate-700 transition-all hover:bg-slate-50 hover:border-slate-300 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="flex w-full items-center justify-center gap-3 rounded-full border border-slate-200 bg-white h-12 px-6 text-sm font-bold text-slate-700 transition-all hover:bg-slate-50 hover:border-slate-300 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <svg aria-hidden="true" className="h-5 w-5" viewBox="0 0 24 24">
           <path
@@ -112,14 +114,14 @@ export function SocialAuthButtons({ variant = 'row' }: SocialAuthButtonsProps) {
             fill="#EA4335"
           />
         </svg>
-        {isColumnLayout ? 'Sign in with Google' : 'Google'}
+        {isColumnLayout ? t('auth.signInWithGoogle') : t('auth.google')}
       </button>
 
       <button
         type="button"
         onClick={handleFacebookLogin}
         disabled={isLoading}
-        className="flex flex-1 items-center justify-center gap-3 rounded-full border border-slate-200 bg-white h-12 px-6 text-sm font-bold text-slate-700 transition-all hover:bg-slate-50 hover:border-slate-300 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="flex w-full items-center justify-center gap-3 rounded-full border border-slate-200 bg-white h-12 px-6 text-sm font-bold text-slate-700 transition-all hover:bg-slate-50 hover:border-slate-300 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <svg aria-hidden="true" className="h-5 w-5 text-[#1877F2]" fill="currentColor" viewBox="0 0 24 24">
           <path
@@ -128,7 +130,7 @@ export function SocialAuthButtons({ variant = 'row' }: SocialAuthButtonsProps) {
             fillRule="evenodd"
           />
         </svg>
-        {isColumnLayout ? 'Sign in with Facebook' : 'Facebook'}
+        {isColumnLayout ? t('auth.signInWithFacebook') : t('auth.facebook')}
       </button>
     </div>
   );

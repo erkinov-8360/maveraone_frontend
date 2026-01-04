@@ -1,32 +1,47 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { motion } from 'framer-motion';
-import { Plane, User, Mail, Lock, ShieldCheck, Eye, EyeOff } from 'lucide-react';
-import { useRegister } from '@/hooks/useAuthMutations';
-import { SocialAuthButtons } from '@/components/auth/SocialAuthButtons';
-import { ROUTES } from '@/config/routes';
+import { useState } from "react";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { motion } from "framer-motion";
+import {
+  Plane,
+  User,
+  Mail,
+  Lock,
+  ShieldCheck,
+  Eye,
+  EyeOff,
+} from "lucide-react";
+import { useRegister } from "@/hooks/useAuthMutations";
+import { SocialAuthButtons } from "@/components/auth/SocialAuthButtons";
+import { Footer } from "@/components/layout/Footer";
+import { ROUTES } from "@/config/routes";
+import { useTranslations } from "@/context/TranslationsContext";
 
-const registerSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
-  password_confirmation: z.string(),
-}).refine((data) => data.password === data.password_confirmation, {
-  message: "Passwords don't match",
-  path: ['password_confirmation'],
-});
-
-type RegisterFormData = z.infer<typeof registerSchema>;
+const getRegisterSchema = (t: (key: string) => string) =>
+  z
+    .object({
+      name: z.string().min(2, t("auth.validation.nameMinLength")),
+      email: z.string().email(t("auth.validation.invalidEmail")),
+      password: z.string().min(8, t("auth.validation.passwordMinLength8")),
+      password_confirmation: z.string(),
+    })
+    .refine((data) => data.password === data.password_confirmation, {
+      message: t("auth.validation.passwordsDontMatch"),
+      path: ["password_confirmation"],
+    });
 
 export default function RegisterPage() {
+  const { t } = useTranslations();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const registerMutation = useRegister();
+
+  const registerSchema = getRegisterSchema(t);
+  type RegisterFormData = z.infer<typeof registerSchema>;
 
   const {
     register,
@@ -59,7 +74,9 @@ export default function RegisterPage() {
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg shadow-blue-600/30">
             <Plane className="w-5 h-5" />
           </div>
-          <h2 className="text-2xl font-bold tracking-tight text-white drop-shadow-md">Maveraone</h2>
+          <h2 className="text-2xl font-bold tracking-tight text-white drop-shadow-md">
+            Maveraone
+          </h2>
         </Link>
       </header>
 
@@ -74,15 +91,16 @@ export default function RegisterPage() {
           {/* Header */}
           <div className="mb-8 text-center">
             <h1 className="mb-2 text-3xl font-black tracking-tight text-slate-900 md:text-4xl">
-              Start Your Journey
+              {t("auth.startJourney")}
             </h1>
-            <p className="text-slate-500">
-              Join Maveraone to unlock exclusive travel deals.
-            </p>
+            <p className="text-slate-500">{t("auth.registerSubtitle")}</p>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-5"
+          >
             {/* Full Name */}
             <div className="group relative">
               <div className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors">
@@ -90,14 +108,16 @@ export default function RegisterPage() {
               </div>
               <input
                 type="text"
-                placeholder="Full Name"
+                placeholder={t("auth.fullName")}
                 className={`h-14 w-full rounded-full border-2 ${
-                  errors.name ? 'border-red-400' : 'border-slate-200'
+                  errors.name ? "border-red-400" : "border-slate-200"
                 } bg-slate-50 pl-12 pr-4 text-base font-medium text-slate-900 placeholder-slate-400 outline-none transition-all focus:border-blue-600 focus:bg-white`}
-                {...register('name')}
+                {...register("name")}
               />
               {errors.name && (
-                <p className="mt-1 ml-4 text-xs text-red-500">{errors.name.message}</p>
+                <p className="mt-1 ml-4 text-xs text-red-500">
+                  {errors.name.message}
+                </p>
               )}
             </div>
 
@@ -108,14 +128,16 @@ export default function RegisterPage() {
               </div>
               <input
                 type="email"
-                placeholder="Email Address"
+                placeholder={t("auth.emailAddress")}
                 className={`h-14 w-full rounded-full border-2 ${
-                  errors.email ? 'border-red-400' : 'border-slate-200'
+                  errors.email ? "border-red-400" : "border-slate-200"
                 } bg-slate-50 pl-12 pr-4 text-base font-medium text-slate-900 placeholder-slate-400 outline-none transition-all focus:border-blue-600 focus:bg-white`}
-                {...register('email')}
+                {...register("email")}
               />
               {errors.email && (
-                <p className="mt-1 ml-4 text-xs text-red-500">{errors.email.message}</p>
+                <p className="mt-1 ml-4 text-xs text-red-500">
+                  {errors.email.message}
+                </p>
               )}
             </div>
 
@@ -125,22 +147,28 @@ export default function RegisterPage() {
                 <Lock className="w-5 h-5" />
               </div>
               <input
-                type={showPassword ? 'text' : 'password'}
-                placeholder="Create Password"
+                type={showPassword ? "text" : "password"}
+                placeholder={t("auth.createPassword")}
                 className={`h-14 w-full rounded-full border-2 ${
-                  errors.password ? 'border-red-400' : 'border-slate-200'
+                  errors.password ? "border-red-400" : "border-slate-200"
                 } bg-slate-50 pl-12 pr-12 text-base font-medium text-slate-900 placeholder-slate-400 outline-none transition-all focus:border-blue-600 focus:bg-white`}
-                {...register('password')}
+                {...register("password")}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
               >
-                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                {showPassword ? (
+                  <EyeOff className="w-5 h-5" />
+                ) : (
+                  <Eye className="w-5 h-5" />
+                )}
               </button>
               {errors.password && (
-                <p className="mt-1 ml-4 text-xs text-red-500">{errors.password.message}</p>
+                <p className="mt-1 ml-4 text-xs text-red-500">
+                  {errors.password.message}
+                </p>
               )}
             </div>
 
@@ -150,22 +178,30 @@ export default function RegisterPage() {
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <input
-                type={showConfirmPassword ? 'text' : 'password'}
-                placeholder="Confirm Password"
+                type={showConfirmPassword ? "text" : "password"}
+                placeholder={t("auth.confirmPassword")}
                 className={`h-14 w-full rounded-full border-2 ${
-                  errors.password_confirmation ? 'border-red-400' : 'border-slate-200'
+                  errors.password_confirmation
+                    ? "border-red-400"
+                    : "border-slate-200"
                 } bg-slate-50 pl-12 pr-12 text-base font-medium text-slate-900 placeholder-slate-400 outline-none transition-all focus:border-blue-600 focus:bg-white`}
-                {...register('password_confirmation')}
+                {...register("password_confirmation")}
               />
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
               >
-                {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                {showConfirmPassword ? (
+                  <EyeOff className="w-5 h-5" />
+                ) : (
+                  <Eye className="w-5 h-5" />
+                )}
               </button>
               {errors.password_confirmation && (
-                <p className="mt-1 ml-4 text-xs text-red-500">{errors.password_confirmation.message}</p>
+                <p className="mt-1 ml-4 text-xs text-red-500">
+                  {errors.password_confirmation.message}
+                </p>
               )}
             </div>
 
@@ -178,19 +214,18 @@ export default function RegisterPage() {
               {registerMutation.isPending ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
-                'Sign Up'
+                t("auth.signUp")
               )}
             </button>
           </form>
 
           {/* Divider */}
-          <div className="relative my-8 flex items-center justify-center">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-slate-200" />
-            </div>
-            <div className="relative bg-white px-4 text-sm font-medium text-slate-400">
-              or continue with
-            </div>
+          <div className="relative flex py-8 items-center">
+            <div className="flex-grow border-t border-slate-200" />
+            <span className="flex-shrink-0 mx-3 text-slate-400 text-sm font-medium">
+              {t("auth.or")}
+            </span>
+            <div className="flex-grow border-t border-slate-200" />
           </div>
 
           {/* Social Auth Buttons */}
@@ -198,20 +233,15 @@ export default function RegisterPage() {
 
           {/* Login Link */}
           <p className="mt-8 text-center text-sm font-medium text-slate-500">
-            Already have an account?{' '}
+            {t("auth.alreadyHaveAccount")}{" "}
             <Link
               href={ROUTES.LOGIN}
               className="text-blue-600 hover:text-blue-700 hover:underline"
             >
-              Log in
+              {t("common.login")}
             </Link>
           </p>
         </motion.div>
-
-        {/* Footer */}
-        <p className="mt-8 text-center text-xs text-white/60">
-          © 2024 Maveraone Inc. All rights reserved.
-        </p>
       </main>
     </div>
   );

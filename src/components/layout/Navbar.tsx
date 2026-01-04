@@ -30,7 +30,7 @@ export function Navbar() {
         <h2 className="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Maveraone</h2>
       </Link>
 
-      <div className="flex flex-1 justify-end gap-8">
+      <div className="flex flex-1 justify-end gap-6">
         <nav className="hidden md:flex items-center gap-9">
           <Link href={ROUTES.HOME} className="text-white text-sm font-medium hover:text-[#137fec] transition-colors leading-normal">
             {t('navbar.home')}
@@ -219,7 +219,7 @@ export function Navbar() {
             href={ROUTES.LOGIN}
             className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-[#137fec] text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-blue-600 transition-colors"
           >
-            <span className="truncate">{t('common.signup')}</span>
+            <span className="truncate">{t('common.login')}</span>
           </Link>
         )}
       </div>
