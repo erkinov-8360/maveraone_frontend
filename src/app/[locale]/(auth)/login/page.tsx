@@ -13,6 +13,7 @@ import { Footer } from '@/components/layout/Footer';
 import { ROUTES } from '@/config/routes';
 import toast from 'react-hot-toast';
 import { useTranslations } from '@/context/TranslationsContext';
+import { useLocalizedPath } from '@/hooks/useLocalizedPath';
 
 const getLoginSchema = (t: (key: string) => string) => z.object({
   email: z.string().email(t('auth.validation.invalidEmail')),
@@ -21,6 +22,7 @@ const getLoginSchema = (t: (key: string) => string) => z.object({
 
 export default function LoginPage() {
   const { t } = useTranslations();
+  const { getLocalizedPath } = useLocalizedPath();
   const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
@@ -63,7 +65,7 @@ export default function LoginPage() {
 
       {/* Header */}
       <header className="relative z-20 flex items-center justify-between whitespace-nowrap px-10 py-6 border-b border-white/10">
-        <Link href="/" className="flex items-center gap-4 text-white">
+        <Link href={getLocalizedPath("/")} className="flex items-center gap-4 text-white">
           <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/20 backdrop-blur-md">
             <Globe className="w-5 h-5 text-white" />
           </div>
@@ -145,7 +147,7 @@ export default function LoginPage() {
             {/* Forgot Password Link */}
             <div className="flex justify-end -mt-2">
               <Link
-                href={ROUTES.FORGOT_PASSWORD}
+                href={getLocalizedPath(ROUTES.FORGOT_PASSWORD)}
                 className="text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors"
               >
                 {t('auth.forgotPassword')}
@@ -181,7 +183,7 @@ export default function LoginPage() {
             <p className="text-slate-500 text-sm">
               {t('auth.dontHaveAccount')}{' '}
               <Link
-                href={ROUTES.REGISTER}
+                href={getLocalizedPath(ROUTES.REGISTER)}
                 className="text-blue-600 hover:text-blue-700 font-bold transition-colors"
               >
                 {t('auth.signUp')}

@@ -20,6 +20,7 @@ import { SocialAuthButtons } from "@/components/auth/SocialAuthButtons";
 import { Footer } from "@/components/layout/Footer";
 import { ROUTES } from "@/config/routes";
 import { useTranslations } from "@/context/TranslationsContext";
+import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 
 const getRegisterSchema = (t: (key: string) => string) =>
   z
@@ -36,6 +37,7 @@ const getRegisterSchema = (t: (key: string) => string) =>
 
 export default function RegisterPage() {
   const { t } = useTranslations();
+  const { getLocalizedPath } = useLocalizedPath();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const registerMutation = useRegister();
@@ -70,7 +72,7 @@ export default function RegisterPage() {
 
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center px-6 py-8 md:justify-start md:px-12 lg:px-20">
-        <Link href="/" className="flex items-center gap-3">
+        <Link href={getLocalizedPath("/")} className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg shadow-blue-600/30">
             <Plane className="w-5 h-5" />
           </div>
@@ -235,7 +237,7 @@ export default function RegisterPage() {
           <p className="mt-8 text-center text-sm font-medium text-slate-500">
             {t("auth.alreadyHaveAccount")}{" "}
             <Link
-              href={ROUTES.LOGIN}
+              href={getLocalizedPath(ROUTES.LOGIN)}
               className="text-blue-600 hover:text-blue-700 hover:underline"
             >
               {t("common.login")}

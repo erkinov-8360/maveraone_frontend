@@ -1,13 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { GoogleOAuthProvider } from '@/lib/auth/oauth/GoogleOAuthProvider';
 import { FacebookOAuthProvider } from '@/lib/auth/oauth/FacebookOAuthProvider';
 import { authApi } from '@/lib/api/auth';
 import { useAuth } from '@/context/AuthContext';
 import { useAuthStore } from '@/store/authStore';
 import { useTranslations } from '@/context/TranslationsContext';
+import { getLocalizedPath, getLocaleFromPathname } from '@/lib/i18n/localizedRoutes';
 import toast from 'react-hot-toast';
 
 interface SocialAuthButtonsProps {
@@ -17,6 +18,7 @@ interface SocialAuthButtonsProps {
 export function SocialAuthButtons({ variant = 'row' }: SocialAuthButtonsProps) {
   const { t } = useTranslations();
   const router = useRouter();
+  const pathname = usePathname();
   const { refreshUser } = useAuth();
   const setAuth = useAuthStore((state) => state.setAuth);
   const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +40,8 @@ export function SocialAuthButtons({ variant = 'row' }: SocialAuthButtonsProps) {
       toast.success(t('auth.successfullySignedIn'));
 
       // Redirect to main page
-      router.push('/');
+      const locale = getLocaleFromPathname(pathname || '');
+      router.push(getLocalizedPath('/', locale));
     } catch (error) {
       // Silently handle user cancellation (popup closed)
       if (error instanceof Error && error.message === 'Popup closed by user') {
@@ -68,7 +71,8 @@ export function SocialAuthButtons({ variant = 'row' }: SocialAuthButtonsProps) {
       toast.success(t('auth.successfullySignedIn'));
 
       // Redirect to main page
-      router.push('/');
+      const locale = getLocaleFromPathname(pathname || '');
+      router.push(getLocalizedPath('/', locale));
     } catch (error) {
       // Silently handle user cancellation (popup closed)
       if (error instanceof Error && error.message === 'Popup closed by user') {

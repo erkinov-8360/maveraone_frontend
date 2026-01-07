@@ -95,13 +95,19 @@ export const authApi = {
 
   getGoogleAuthUrl: (): string => {
     const baseUrl = apiClient.getBaseUrl();
-    const redirectUrl = encodeURIComponent(`${window.location.origin}/oauth/callback`);
+    // Get current locale from pathname (e.g., /en/login -> en)
+    const pathSegments = window.location.pathname.split('/').filter(Boolean);
+    const locale = ['en', 'uz', 'ru', 'zh'].includes(pathSegments[0]) ? pathSegments[0] : 'en';
+    const redirectUrl = encodeURIComponent(`${window.location.origin}/${locale}/oauth/callback`);
     return `${baseUrl}/api/public/auth/redirect/google?redirect_url=${redirectUrl}&prompt=select_account`;
   },
 
   getFacebookAuthUrl: (): string => {
     const baseUrl = apiClient.getBaseUrl();
-    const redirectUrl = encodeURIComponent(`${window.location.origin}/oauth/callback`);
+    // Get current locale from pathname (e.g., /en/login -> en)
+    const pathSegments = window.location.pathname.split('/').filter(Boolean);
+    const locale = ['en', 'uz', 'ru', 'zh'].includes(pathSegments[0]) ? pathSegments[0] : 'en';
+    const redirectUrl = encodeURIComponent(`${window.location.origin}/${locale}/oauth/callback`);
     return `${baseUrl}/api/public/auth/redirect/facebook?redirect_url=${redirectUrl}`;
   },
 

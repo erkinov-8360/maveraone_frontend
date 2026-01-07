@@ -1,15 +1,17 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { authApi } from '@/lib/api/auth';
 import { useAuthStore } from '@/store/authStore';
 import { ROUTES } from '@/config/routes';
 import { LoginCredentials, RegisterCredentials } from '@/types/auth';
+import { getLocalizedPath, getLocaleFromPathname } from '@/lib/i18n/localizedRoutes';
 
 export function useExchangeCode() {
   const router = useRouter();
+  const pathname = usePathname();
   const setAuth = useAuthStore((state) => state.setAuth);
 
   return useMutation({
@@ -17,17 +19,20 @@ export function useExchangeCode() {
     onSuccess: (data) => {
       setAuth(data.user, data.token);
       toast.success('Successfully signed in!');
-      router.push(ROUTES.DASHBOARD);
+      const locale = getLocaleFromPathname(pathname || '');
+      router.push(getLocalizedPath(ROUTES.DASHBOARD, locale));
     },
     onError: (error: Error) => {
       toast.error(error.message || 'Authentication failed');
-      router.push(ROUTES.LOGIN);
+      const locale = getLocaleFromPathname(pathname || '');
+      router.push(getLocalizedPath(ROUTES.LOGIN, locale));
     },
   });
 }
 
 export function useLogin() {
   const router = useRouter();
+  const pathname = usePathname();
   const setAuth = useAuthStore((state) => state.setAuth);
 
   return useMutation({
@@ -35,7 +40,8 @@ export function useLogin() {
     onSuccess: (data) => {
       setAuth(data.user, data.token);
       toast.success('Successfully signed in!');
-      router.push(ROUTES.HOME);
+      const locale = getLocaleFromPathname(pathname || '');
+      router.push(getLocalizedPath(ROUTES.HOME, locale));
     },
     onError: (error: Error) => {
       toast.error(error.message || 'Login failed');
@@ -45,6 +51,7 @@ export function useLogin() {
 
 export function useRegister() {
   const router = useRouter();
+  const pathname = usePathname();
   const setAuth = useAuthStore((state) => state.setAuth);
 
   return useMutation({
@@ -52,7 +59,8 @@ export function useRegister() {
     onSuccess: (data) => {
       setAuth(data.user, data.token);
       toast.success('Account created successfully!');
-      router.push(ROUTES.HOME);
+      const locale = getLocaleFromPathname(pathname || '');
+      router.push(getLocalizedPath(ROUTES.HOME, locale));
     },
     onError: (error: Error) => {
       toast.error(error.message || 'Registration failed');
@@ -62,6 +70,7 @@ export function useRegister() {
 
 export function useLogout() {
   const router = useRouter();
+  const pathname = usePathname();
   const clearAuth = useAuthStore((state) => state.clearAuth);
 
   return useMutation({
@@ -70,7 +79,8 @@ export function useLogout() {
     },
     onSuccess: () => {
       toast.success('Logged out successfully');
-      router.push(ROUTES.HOME);
+      const locale = getLocaleFromPathname(pathname || '');
+      router.push(getLocalizedPath(ROUTES.HOME, locale));
     },
   });
 }

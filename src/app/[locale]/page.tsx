@@ -20,6 +20,7 @@ import {
 import { MOCK_TOURS } from "@/lib/api/mock/mockTours";
 import { DatePicker } from "@/components/ui/DatePicker";
 import { useTranslations } from "@/context/TranslationsContext";
+import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 
 const TESTIMONIALS = [
   {
@@ -116,6 +117,7 @@ function StarRating({ rating }: { rating: number }) {
 
 export default function HomePage() {
   const { t } = useTranslations();
+  const { getLocalizedPath } = useLocalizedPath();
   const [destination, setDestination] = useState("");
   const [startDate, setStartDate] = useState<Date | undefined>();
   const [endDate, setEndDate] = useState<Date | undefined>();
@@ -223,7 +225,7 @@ export default function HomePage() {
                   Top Trending Destinations
                 </h2>
                 <Link
-                  href="/tours"
+                  href={getLocalizedPath("/tours")}
                   className="text-[#137fec] text-sm font-bold hover:underline"
                 >
                   View all
@@ -239,7 +241,7 @@ export default function HomePage() {
                 {MOCK_TOURS.filter((tour) => tour.featured)
                   .slice(0, 4)
                   .map((tour, index) => (
-                    <Link key={tour.id} href={`/tours/${tour.id}`}>
+                    <Link key={tour.id} href={getLocalizedPath(`/tours/${tour.id}`)}>
                       <motion.div
                         variants={scaleUpVariants}
                         transition={{

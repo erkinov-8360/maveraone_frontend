@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import { Globe, Mail, ArrowLeft, ArrowRight, KeyRound, CheckCircle } from 'lucide-react';
 import { ROUTES } from '@/config/routes';
 import { useResetPassword } from '@/hooks/useAuthMutations';
+import { useLocalizedPath } from '@/hooks/useLocalizedPath';
 
 const resetPasswordSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -16,6 +17,7 @@ const resetPasswordSchema = z.object({
 type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;
 
 export default function ForgotPasswordPage() {
+  const { getLocalizedPath } = useLocalizedPath();
   const resetPassword = useResetPassword();
 
   const {
@@ -46,7 +48,7 @@ export default function ForgotPasswordPage() {
       <div className="relative z-10 flex flex-col min-h-screen">
         {/* Header */}
         <header className="flex items-center w-full px-6 py-6 lg:px-12">
-          <Link href="/" className="flex items-center gap-3 text-white group hover:opacity-90 transition-opacity">
+          <Link href={getLocalizedPath("/")} className="flex items-center gap-3 text-white group hover:opacity-90 transition-opacity">
             <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white">
               <Globe className="w-5 h-5" />
             </div>

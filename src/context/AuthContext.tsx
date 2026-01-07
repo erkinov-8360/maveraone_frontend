@@ -3,9 +3,10 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { User, LoginCredentials, RegisterCredentials } from '@/types/auth';
 import { authService } from '@/lib/auth';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { ROUTES } from '@/config/routes';
 import { useAuthStore } from '@/store/authStore';
+import { getLocalizedPath, getLocaleFromPathname } from '@/lib/i18n/localizedRoutes';
 
 interface AuthContextType {
   user: User | null;
@@ -26,6 +27,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  const pathname = usePathname();
 
   // Sync with Zustand store whenever it changes
   useEffect(() => {
@@ -52,19 +54,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   async function login(credentials: LoginCredentials) {
     const { user } = await authService.login(credentials);
     setUser(user);
-    router.push(ROUTES.HOME);
+    const locale = getLocaleFromPathname(pathname || '');
+    router.push(getLocalizedPath(ROUTES.HOME, locale));
   }
 
   async function register(credentials: RegisterCredentials) {
     const { user } = await authService.register(credentials);
     setUser(user);
-    router.push(ROUTES.HOME);
+    const locale = getLocaleFromPathname(pathname || '');
+    router.push(getLocalizedPath(ROUTES.HOME, locale));
   }
 
   async function logout() {
     await authService.logout();
     setUser(null);
-    router.push(ROUTES.HOME);
+    const locale = getLocaleFromPathname(pathname || '');
+    router.push(getLocalizedPath(ROUTES.HOME, locale));
   }
 
   async function refreshUser() {

@@ -16,14 +16,16 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useTranslations } from '@/context/TranslationsContext';
 import { locales, localeNames } from '@/i18n/config';
+import { useLocalizedPath } from '@/hooks/useLocalizedPath';
 
 export function Navbar() {
   const { user, isAuthenticated, logout } = useAuth();
   const { t, locale, setLocale } = useTranslations();
+  const { getLocalizedPath } = useLocalizedPath();
 
   return (
     <header className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between whitespace-nowrap px-4 md:px-10 py-6 border-b border-white/10">
-      <Link href={ROUTES.HOME} className="flex items-center gap-2">
+      <Link href={getLocalizedPath(ROUTES.HOME)} className="flex items-center gap-2">
         <div className="text-white">
           <Image src={logo} width={100} height={100} alt="logo" />
         </div>
@@ -32,19 +34,19 @@ export function Navbar() {
 
       <div className="flex flex-1 justify-end gap-6">
         <nav className="hidden md:flex items-center gap-9">
-          <Link href={ROUTES.HOME} className="text-white text-sm font-medium hover:text-[#137fec] transition-colors leading-normal">
+          <Link href={getLocalizedPath(ROUTES.HOME)} className="text-white text-sm font-medium hover:text-[#137fec] transition-colors leading-normal">
             {t('navbar.home')}
           </Link>
-          <Link href={ROUTES.TOURS} className="text-white text-sm font-medium hover:text-[#137fec] transition-colors leading-normal">
+          <Link href={getLocalizedPath(ROUTES.TOURS)} className="text-white text-sm font-medium hover:text-[#137fec] transition-colors leading-normal">
             {t('navbar.tours')}
           </Link>
-          <Link href="/destinations" className="text-white text-sm font-medium hover:text-[#137fec] transition-colors leading-normal">
+          <Link href={getLocalizedPath('/destinations')} className="text-white text-sm font-medium hover:text-[#137fec] transition-colors leading-normal">
             {t('navbar.virtualTour')}
           </Link>
-          <Link href="/blogs" className="text-white text-sm font-medium hover:text-[#137fec] transition-colors leading-normal">
+          <Link href={getLocalizedPath('/blogs')} className="text-white text-sm font-medium hover:text-[#137fec] transition-colors leading-normal">
             {t('navbar.blog')}
           </Link>
-          <Link href="/about" className="text-white text-sm font-medium hover:text-[#137fec] transition-colors leading-normal">
+          <Link href={getLocalizedPath('/about')} className="text-white text-sm font-medium hover:text-[#137fec] transition-colors leading-normal">
             {t('navbar.about')}
           </Link>
         </nav>
@@ -150,7 +152,7 @@ export function Navbar() {
                 <DropdownMenuLabel>{t('common.myAccount')}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link href={ROUTES.MY_BOOKINGS} className="cursor-pointer">
+                  <Link href={getLocalizedPath(ROUTES.MY_BOOKINGS)} className="cursor-pointer">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -172,7 +174,7 @@ export function Navbar() {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link href={ROUTES.PROFILE} className="cursor-pointer">
+                  <Link href={getLocalizedPath(ROUTES.PROFILE)} className="cursor-pointer">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -216,7 +218,7 @@ export function Navbar() {
           </div>
         ) : (
           <Link
-            href={ROUTES.LOGIN}
+            href={getLocalizedPath(ROUTES.LOGIN)}
             className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-[#137fec] text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-blue-600 transition-colors"
           >
             <span className="truncate">{t('common.login')}</span>
